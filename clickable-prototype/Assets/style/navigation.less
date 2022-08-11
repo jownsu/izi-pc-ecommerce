@@ -1,0 +1,92 @@
+nav.container {
+    margin-bottom: 10vh;
+
+    .row.top-nav{
+        background-color: rgb(34, 34, 34);
+        margin: 0px;
+        box-sizing: border-box;
+    }
+
+    .slick {
+        font-weight: 100;
+        font-size: 2em;
+        text-decoration: none;
+        color: white;
+        font-family: 'Roboto', sans-serif;
+    
+        .tech {
+            font-weight: 900;
+        }
+    }
+    
+    .slick:hover {
+        color: white;
+        cursor: pointer;
+    }
+
+    div div {
+        a{
+            text-decoration: none;
+        }
+
+        a.cart {
+            font-size: 25px;
+            position: relative;
+            padding: 3px 8px 0 0;
+
+            .cart-count {
+                border-radius: 50px;
+                width: 20px;
+                font-weight: 500;
+                font-size: 12px;
+                color: rgb(255, 255, 255);
+                padding: 1px 3px 1px 3px;
+                background-color: rgb(255, 5, 47);
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
+    } 
+    
+    
+}
+
+@media only screen and (max-width: 1200px) {
+
+    nav.container {
+        margin-bottom: 16vh;
+        .row div input[type="search"]{
+            width: 100%;
+            
+            a{
+                font-size: .8em;
+                text-align: center;
+                width: 100%;
+            }
+        
+            .slick{
+                text-align: left;
+                width: 100%;
+                display: block;
+            }
+        }
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    nav.container{
+        margin-bottom: 23vh;
+        .slick{
+            text-align: center;
+        }
+    }
+   
+}
+
+@media only screen and (max-width: 480px) {
+    nav.container .row div input[type="search"]{
+        width: 100%;
+    }
+}
