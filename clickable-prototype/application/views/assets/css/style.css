@@ -741,9 +741,11 @@ figure.item{
     position: absolute;
     width: 300px;
     height: 120px;
-    border: 1px solid #a3a3a3;
     text-align: center;
     padding: 30px;
+    border-radius: 7px;
+    box-shadow: var(--shadow);
+    color: var(--color-light-1);
     top: 15%;
     left: calc(50% - 150px);
     background-color: var(--color-secondary-light);
@@ -758,14 +760,6 @@ figure.item{
         text-align: left;
         position: relative;
     }
-        .admin_product_delete > div > form > input{
-            background-color: rgb(255, 47, 47);
-        }
-        .admin_product_delete > div > button{
-            position: absolute; /* in relation to .admin_product_delete div */
-            right: 0;
-            top: 0;
-        }
 
 /*------------------------------------------------------------------*/
 /*  Admin Products Dashboard Modal Section   */
@@ -786,25 +780,25 @@ dialog .btn_close{
     position: absolute;
     top: 16px;
     right: 16px;
-    padding: 1px 3.5px 0px 3.5px;
-    background-color: var(--color-secondary-light);
+    line-height: 0;
+    padding: 7px;
     border: none;
 }
-    dialog .btn_close:hover{
-        background-color: rgb(237, 237, 237);
-        border: 1px solid #a3a3a3;
-    }
 
 /*------------------------------------------------------------------*/
 /*  Headings and General Form Sub-Section   */
 /*------------------------------------------------------------------*/
 .admin_products_add_edit{
     display: none;
-    border: 1px solid #a3a3a3;
     width: 630px;
     position: absolute; /* in relation to body */
     top: 15px;
     padding: 20px;
+    border-radius: 7px;
+    border: none;
+    background: var(--color-secondary-light);
+    box-shadow: var(--shadow);
+    color: var(--color-light-1);
     z-index: 2;
 }
     .admin_products_add_edit h3{
@@ -813,18 +807,18 @@ dialog .btn_close{
     .admin_products_add_edit form p{
         display: inline-block;
         width: 150px;
-        text-align: right;
-        margin: 4px 10px 7px 10px;
+        /* margin: 4px 10px 7px 10px; */
         vertical-align: top;
+        margin: 10px 0;
     }
         .admin_products_add_edit form p + input{
             height: 18px;
             width: 420px;    
-            margin: 0px 10px;
+            margin: 10px;
         }
         .admin_products_add_edit form p + textarea{
-            margin: 0px 10px;
-            width: 420px;    
+            margin: 10px;
+            width: 438px;    
             height: 80px;
         }
 
@@ -838,19 +832,19 @@ dialog .btn_close{
         margin: 0px 15px 5px 5px;
     }
     .admin_products_add_edit .dummy_select_tag{
-        width: 428px;
-        height: 25px;
+        width: 445px;
+        height: 35px;
         position: relative;
         text-align: left;
-        background-color: var(--color-secondary-light);
         border: 0.3px solid rgb(118, 118, 118);
         padding: 1px 5px;
+        margin: 10px 0;
         border-radius: 2px;
     }
         .dummy_select_tag span:last-child{
             position: absolute; /* in relation to .dummy_select_tag */
             right: -1px;
-            top: 0;
+            top: 5px;
             padding: 2px;
             width: 24px;
             /* border: 1px solid black; */
@@ -872,6 +866,7 @@ dialog .btn_close{
         .product_category_edit_delete_section{
             position: relative;
             padding: 2px 0;
+            background: #fff;
         }
             .product_category_btn{
                 display: inline-block;
@@ -941,14 +936,6 @@ dialog .btn_close{
         text-align: left;
         position: relative;
     }
-        .category_confirm_delete > div > form > input{
-            background-color: rgb(255, 47, 47);
-        }
-        .category_confirm_delete > div > button{
-            position: absolute; /* in relation to .category_confirm_delete > div */
-            right: 0;
-            top: 0;
-        }
 
 /*------------------------------------------------------------------*/
 /*  General Form Section - Upload Image Section   */
@@ -956,15 +943,12 @@ dialog .btn_close{
 input[type=file]{
     display: none;
 }
-.admin_products_add_edit .img_field_name{
-    margin: 10px 16px 0 10px;
-}
+
 .file_upload_label{
-    border: 0.5px solid rgb(118, 118, 118);
-    padding: 4px 6px;
     cursor: pointer;
-    background-color: rgb(239, 239, 239);
     vertical-align: bottom;
+    margin: 10px;
+    color: var(--color-dark);
 }
 .img_upload_container{
     padding: 0;
@@ -1016,20 +1000,9 @@ input[type=file]{
     text-align: right;
     height: fit-content;
 }
-.btn_cancel_products_add_edit{
-    margin: 0px;
-    vertical-align: top;
-}
-.btn_preview_products_add_edit{
-    margin: 0;
-    background-color: rgb(126, 255, 126);
-    vertical-align: top;
-}
-.btn_submit_products_add_edit{
-    background-color: rgb(57, 57, 255);
-    color: white;
-    margin: 0px 20px 0px 0;
-}
+
+
+
 
 /*------------------------------------------------------------------*/
 /*  END OF Admin Products Dashboard Modal Section   */

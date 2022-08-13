@@ -463,7 +463,7 @@
                     $(this).css("cursor", "grab");
                 })
                 .on("mouseleave", ".img_upload_section figure",  function(){
-                    $(this).parent().css("background-color", "white");
+                    // $(this).parent().css("background-color", "white");
                     $(this).parent().parent().sortable("disable");
                 })
                 .on("mousedown", ".img_upload_section figure",  function(){
@@ -614,8 +614,8 @@
                         <td>123</td>
                         <td>1000</td>
                         <td>
-                            <a href="" class="btn-secondary p-2">edit</a>
-                            <a href="" class="btn-warning p-2 ms-1">Delete</a>
+                            <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
+                            <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
                         </td>
                     </tr>
                     <tr class="color1 product_id_2">
@@ -625,8 +625,8 @@
                         <td>456</td>
                         <td>1000</td>
                         <td>
-                            <a href="" class="btn-secondary p-2">edit</a>
-                            <a href="" class="btn-warning p-2 ms-1">Delete</a>
+                            <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
+                            <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
                         </td>
                     </tr>
                     <tr class="color0 product_id_3">
@@ -636,8 +636,8 @@
                         <td>789</td>
                         <td>1000</td>
                         <td>
-                            <a href="" class="btn-secondary p-2">edit</a>
-                            <a href="" class="btn-warning p-2 ms-1">Delete</a>
+                            <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
+                            <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
                         </td>
                     </tr>
                 </tbody>
@@ -661,19 +661,19 @@
 
     <div class="admin_product_delete">
         <p>Are you sure you want to delete product "<span class="delete_product_name">Product Name</span>" (ID: <span class="delete_product_id">ID</span>)</p>
-        <div>
+        <div class="d-flex justify-content-between">
             <form action="" method="post">
                 <input class="product_id" type="hidden" name="product_id" value="id"/>
-                <input type="submit" value="Yes" />
+                <input type="submit" value="Yes" class="btn-secondary py-2 px-3" />
             </form>
-            <button type="button">No</button>
+            <button type="button" class="btn-primary py-2 px-3">No</button>
         </div>
     </div>
     <div class="modal_bg_delete_product"></div>
     <div class="modal_bg"></div>
     <dialog class="admin_products_add_edit">
-        <h3 class="add_edit_product_header">Edit Product - ID 0</h3>
-        <button class="btn_close">
+        <h2 class="add_edit_product_header">Edit Product - ID 0</h2>
+        <button class="btn_close btn-warning">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-lg" viewBox="0 0 16 16">
                 <path fill-rule="evenodd" d="M13.854 2.146a.5.5 0 0 1 0 .708l-11 11a.5.5 0 0 1-.708-.708l11-11a.5.5 0 0 1 .708 0Z"/>
                 <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
@@ -692,25 +692,25 @@
             <p>Price: </p><input class="input_product_price" type="number" name="product_price" min="0.01" step="0.01"/>
             <p>Quantity (Inventory): </p><input class="input_product_qty" type="number" name="product_qty"/>
             <p class="img_field_name">Images: </p><input id="img_upload" type="file" name="product_img_file" multiple accept=".png, .jpg, .jpeg" />
-            <label class="file_upload_label" for="img_upload">Upload</label>
+            <label class="file_upload_label btn-plain py-2 px-3" for="img_upload">Upload</label>
             <ul class="img_upload_container">
             </ul>
             <div class="products_add_edit_btn">
-                <button class="btn_cancel_products_add_edit" type="button">Cancel</button>
-                <button class="btn_preview_products_add_edit" type="button">Preview</button>
+                <button class="btn_cancel_products_add_edit btn-warning p-2" type="button">Cancel</button>
+                <button class="btn_preview_products_add_edit btn-secondary p-2 ms-2" type="button">Preview</button>
                 <input class="product_id" type="hidden" name="product_id" value=""/>
-                <input class="btn_submit_products_add_edit" type="submit" value="Update" />
+                <input class="btn_submit_products_add_edit btn-primary p-2 ms-2" type="submit" value="Update" />
             </div>
         </form>
         <div class="bg_category_confirm_delete">
             <div class="category_confirm_delete">
                 <p>Are you sure you want to delete "<span class="category_name">Shirt</span>" category?</p>
-                <div>
+                <div class="d-flex justify-content-between">
                     <form action="" method="post">
                         <input class="category_id" type="hidden" name="category_id" value="id"/>
-                        <input type="submit" value="Yes" />
+                        <input type="submit" value="Yes" class="btn-secondary py-2 px-3"/>
                     </form>
-                    <button type="button">No</button>
+                    <button type="button" class="btn-warning py-2 px-3">No</button>
                 </div>
             </div>
         </div>
