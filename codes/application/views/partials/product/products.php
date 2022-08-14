@@ -1,0 +1,27 @@
+<?php 
+                    if(!empty($products)){
+                        foreach($products as $product){
+?>
+                            <section class="products">
+                                <a href="../../../application/views/product/item_page.html">
+                                    <img src="<?= base_url("{$this->product->img_path}/{$product['image']}") ?>" alt="<?= $product['name'] ?>"/>
+                                    <p class="product-price">P <?= $product['price'] ?></p>
+                                </a>
+                                <p class="product-name"><?= $product['name'] ?></p>
+                            </section>
+<?php
+                        }
+                    }
+?>
+                            <section class="pagination">
+<?php 
+                    if(!empty($link_count)){
+                        for($i = 1; $i <= $link_count; $i++){
+?>
+                                <a href="<?= base_url("products/index_html?page=$i") ?>" class="<?= $page == $i ? 'active' : '' ?>"><?= $i ?></a>
+<?php
+                        }    
+                    }
+?>
+
+                            </section>

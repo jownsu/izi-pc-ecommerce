@@ -1,0 +1,1010 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+/*------------------------------------------------------------------*/
+/*  Stylesheet common for all pages    */
+/*------------------------------------------------------------------*/
+
+:root {
+    --color-primary: rgb(162, 123, 92);  
+    --color-primary-light: rgb(201, 156, 119);  
+    --color-primary-dark: rgb(126, 95, 70);  
+    
+    --color-secondary: rgb(63, 78, 79);
+    --color-secondary-light: rgb(96, 116, 117);
+    --color-secondary-dark: rgb(41, 50, 51);
+    
+    --color-light: rgb(220, 215, 201);
+    --color-light-1: #faf9f9;
+    --color-light-2: #f4f2f2;
+    --color-light-3: #f0eeee;
+    --color-light-4: #ccc;
+
+    --color-dark: rgb(33,37,41);
+    --color-dark-1: #333;
+    --color-dark-2: #777;
+    --color-dark-3: #999;
+  
+    --shadow: 2px 2px 5px rgba(0, 0, 0, .7);
+    --shadow-down: 0 2px 5px rgba(0, 0, 0, .7);
+}
+
+body{
+    padding: 0;
+    margin: 0;
+    position: relative;
+    font-family: 'Montserrat', sans-serif;
+    background-image: linear-gradient(to right, var(--color-light), var(--color-secondary));
+    background-size: cover;
+    height: 100%;
+}
+h1{
+    font-size: 28px;
+}
+h1, h2, h3, h4, p{
+    margin: 0;
+}
+p, a, label, input, select, textarea, td{
+    font-size: 16px;
+}
+input, select {
+    padding: 5px 10px;
+}
+a {
+    text-decoration: none;
+    color: rgb(161, 161, 255);
+}
+header{
+    border-bottom: 2px solid var(--color-light);
+    background-color: var(--color-dark);
+    padding: 10px 20px;
+}
+
+header a {
+    color: var(--color-light);
+}
+
+main{
+    padding: 2% 3% 4% 3%;
+    text-align: center;
+}
+._container {
+    margin: 25px auto;
+    box-shadow: var(--shadow);
+    padding: 0;
+    border-radius: 5px;
+    overflow: hidden;
+    background: var(--color-secondary);
+    color: var(--color-light);
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+    background-color: var(--color-secondary-light);
+}
+td, th{
+    padding: 15px 20px;
+}
+thead{
+    background-color: var(--color-dark-1);
+    color: white;
+}
+tbody{
+    text-align: left;
+    font-weight: 500;
+}
+img{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+figure{
+    margin: 0;
+}
+button{
+    vertical-align: middle;
+}
+button{
+}
+a{
+    text-decoration: none;
+}
+.color1{
+    background-color: var(--color-secondary-dark);
+}
+
+.auth-form {
+    width: 100%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .7);
+    border-radius: 5px;
+    padding: 20px 50px;
+    color: var(--color-light);
+    background: var(--color-secondary);
+}
+    .auth-form h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 36px;
+    }
+    .auth-form form {
+        text-align: center;
+    }
+    .auth-form input {
+        width: 50%;
+        text-align: center;
+    }
+    .auth-form label {
+        margin-bottom: 5px;
+    }
+
+.btn-primary,
+.btn-secondary,
+.btn-warning,
+.btn-success,
+.btn-plain {
+        display: inline-block;
+        color: #fff;
+        font-size: 16px;
+        text-decoration: none;
+        border-radius: 7px;
+        font-weight: 500;
+        font-family: inherit;
+        border: none;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, .5);
+    }
+    .btn-primary {
+        background: var(--color-primary);
+    }
+    .btn-secondary {
+        background: #DCD7C9;
+        margin-left: auto;
+        color: #000;
+    }
+    .btn-warning {
+        background: rgb(252, 67, 67);
+    }
+    .btn-success {
+        background: rgb(38, 184, 104);
+    }
+    .btn-plain{
+        background: rgb(163, 204, 250);
+        color: #000;
+    }
+.alert-success,
+.alert-error {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, .7);
+    color: #000;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: rgb(163, 250, 163);
+}
+
+.alert-error {
+    background: rgb(248, 117, 117);
+}
+
+/*------------------------------------------------------------------*/
+/*  Pagination Section  */
+/*------------------------------------------------------------------*/
+.pagination{
+    padding: 20px;
+}
+    .pagination a{
+        width: 20px;
+        height: 20px;
+        padding: 8px 7px 6px 7px;
+        display: inline-block;
+        outline: 1px solid #a3a3a3;
+        background: var(--color-dark);
+    }
+        .pagination a:hover{
+            background-color: #1975ff;
+            color: white;
+        }
+/*------------------------------------------------------------------*/
+/*  Admin Orders Dashboard Table / Admin Products Dashboard Table Section   */
+/*------------------------------------------------------------------*/
+.admin_orders_table, .admin_products_table{
+    margin: 20px;
+    width: calc(100% - 40px);
+}
+.admin_orders_table td:nth-child(6), .admin_products_table td:nth-child(6){
+    width: 150px;
+    text-align: center;
+}
+
+/*------------------------------------------------------------------*/
+/*  END OF Stylesheet common for all pages    */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Products Page   */
+/*------------------------------------------------------------------*/
+/*  Category Section   */
+/*------------------------------------------------------------------*/
+.category_panel{
+    margin: 0 10px 20px 0 ;
+    outline: 1px solid var(--color-dark);
+    box-shadow: var(--shadow);
+    border-radius: 7px;
+    background-color: var(--color-secondary-light);
+}
+    .category_panel form{
+        padding: 14.5px;
+        background-color: var(--color-dark-1);
+    }
+
+    .category_panel input {
+        width: 100%;
+    }
+
+    .category_panel section{
+        padding-bottom: 15px;
+        border-top: 1px solid #a3a3a3;
+    }
+        .category_panel h4{
+            padding: 15px 15px 5px 15px;
+            text-align: left;
+        }
+        .category_panel a{
+            text-align: left;
+            padding: 5px 5px 5px 30px;
+            display: block;
+            color: var(--color-light-3);
+        }
+            .category_panel a:hover{
+                font-weight: 600;
+                outline: 1px solid #a3a3a3;
+            }
+        .category_panel a.show_all_products{
+            font-style: italic;
+        }
+
+/*------------------------------------------------------------------*/
+/*  Catalog Section   */
+/*------------------------------------------------------------------*/
+.catalog{
+    width: 100%;
+    text-align: center;
+    vertical-align: top;
+    box-shadow: var(--shadow);
+    border-radius: 7px;
+    background-color: var(--color-secondary-light);
+}
+    .catalog .subheader{
+        text-align: left;
+        position: relative;
+        border-bottom: 2px solid var(--color-light);
+        background-color: var(--color-dark-1);
+    }
+        .catalog .subheader h2{
+            font-size: 20px;
+            padding: 15px;
+        }
+        .catalog .subheader .pagination_top{
+            position: absolute;
+            right: 0;
+            top: 0;
+            border-left: 1px solid #a3a3a3;
+        }
+            .catalog .subheader .pagination_top a, .catalog .subheader .pagination_top p{
+                padding: 19px;
+                width: 35px;
+                margin: 0;
+                border-right: 1px solid #a3a3a3;
+                text-align: center;
+                display: inline-block;
+            }
+            .catalog .subheader .pagination_top a:last-of-type{
+                border: none;
+            }
+                .catalog .subheader .pagination_top a:hover, .catalog .subheader .pagination_top p:hover{
+                    background-color: var(--color-primary);
+                    color: white;
+                }
+    .catalog form{
+        text-align: right;
+        margin: 10px 20px 20px 0;
+    }
+
+/*------------------------------------------------------------------*/
+/*  Product / Item Section   */
+/*------------------------------------------------------------------*/
+.products{
+    width: 150px;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin: 3px;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--color-dark-1);
+    color: var(--color-light);
+}
+    .products a{
+        position: relative;
+    }
+    .products .product-price {
+        background: var(--color-primary);
+        box-shadow: var(--shadow);
+        color: var(--color-light);
+        font-size: 14px;
+        font-weight: 500;
+        position: absolute;
+        bottom: -10px;
+        left: 10px;
+        padding: 3px 10px;
+        border-radius: 7px;
+    }
+    .products .product-name{
+        margin-top: 15px;
+        padding: 0 10px;
+        font-size: 14px;
+        height: 45px;
+        font-weight: 500;
+        text-overflow: ellipsis;
+        word-wrap: break-word;
+        white-space: normal;
+        overflow: hidden;
+        /* display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2; */
+    }
+    
+    .products:hover{
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-down);
+        transition: all .3s;
+    }
+    .products p{
+        padding: 5px 0 20px 0;
+        text-align: left;
+    }
+figure.item{
+    width: 193px;
+    height: 193px;
+    position: relative;
+}
+    figure.item h4{
+        text-align: right;
+        padding: 3px 7px;
+        background-color: var(--color-primary);
+        color: white;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        width: calc(100% - 14px);
+        font-weight: normal;
+    }
+
+/*------------------------------------------------------------------*/
+/*  END OF Products Page   */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Item Page   */
+/*------------------------------------------------------------------*/
+/*  Item Panel Section   */
+/*------------------------------------------------------------------*/
+.item_panel{
+    text-align: left;
+    width: 100%;
+}
+.item_panel > a > p{
+    margin-bottom: 15px;
+}
+.item_details .img_section{
+    display: inline-block;
+    text-align: center;
+    margin: 0 10px;
+    padding: 14px 10px 10px 10px;
+    background-color: var(--color-secondary-light);
+    box-shadow: var(--shadow);
+}
+    .item_details .main_img{
+        width: 350px;
+        height: 350px;
+        background-color: var(--color-secondary-light);
+        display: inline-block;
+        margin: 0 3px 15px 3px;
+        outline: 1px solid #a3a3a3;
+    }
+    .item_details .img_section section .sub_img{
+        display: inline-block;
+        margin: 3px;
+        width: 80px;
+        height: 80px;
+        background-color: var(--color-secondary-light);
+    }
+
+/*------------------------------------------------------------------*/
+/*  Item Description Section   */
+/*------------------------------------------------------------------*/
+.item_details .desc_section{
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 10px 25px 10px;
+    width: calc(99.5% - 40px - 2*10px -  360px);
+    background-color: var(--color-secondary-light);
+    box-shadow: var(--shadow);
+}   
+    .desc_section h2{
+        border-bottom: 1px solid #a3a3a3;
+        background: var(--color-dark-1);
+        padding: 10px 20px;
+    }
+    .desc_section p{
+        width: calc(100% - 80px);
+        padding: 20px 40px 40px 40px;
+    }
+.item_panel form{
+    text-align: right;
+    position: relative;
+    padding: 15px 40px;
+    border-top: 1px solid #a3a3a3;
+}
+    .item_panel form select{
+        width: 140px;
+    }
+
+
+/*------------------------------------------------------------------*/
+/*  Similar Items Section   */
+/*------------------------------------------------------------------*/
+.similar_items_section{
+    margin: 40px 10px 10px 10px;
+    background-color: var(--color-secondary-light);
+}
+    .similar_items_section h3{
+        text-align: left;
+        padding: 15px;
+        border-bottom: 1px solid #a3a3a3;
+        margin-bottom: 10px;
+        background: var(--color-dark-1);
+    }
+
+/*------------------------------------------------------------------*/
+/*  END OF Item Page   */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Cart Page   */
+/*------------------------------------------------------------------*/
+/*  Cart Table Section   */
+/*------------------------------------------------------------------*/
+.cart_table_section{
+    margin: 20px;
+    text-align: right;
+}
+.cart_table th{
+    text-align: center;
+}
+    .cart_table th:nth-child(3){
+        width: 25%;
+    }
+.cart_table td{
+    text-align: left;
+    height: 36px;
+}
+.cart_table td + td{
+    text-align: right;
+}
+.cart_table form{
+    display: inline-block;
+}
+.cart_table span{
+    margin: 0 30px 0 0;
+}
+.cart_table_section h4{
+    padding: 10px 20px;
+    background-color: var(--color-secondary-light);
+}
+.cart_total_section > p{
+    margin: 15px 0 30px 0;
+}
+
+/*------------------------------------------------------------------*/
+/*  Cart Billing Section   */
+/*------------------------------------------------------------------*/
+.cart_billing_section{
+    text-align: left;
+    margin: 20px;
+    background-color: var(--color-secondary-light);
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: var(--shadow);
+}
+    .cart_billing_section h2:nth-of-type(2){
+        margin: 30px 0 10px 0;
+    }
+    .cart_billing_section #billing_checkbox, .cart_billing_section label{
+        vertical-align: middle;
+    }
+    .cart_billing_section > span{
+        display: block;
+        margin: 6px 0 6px 20px;
+    }
+    .cart_billing_section .card_billing{
+        margin: 20px 0 6px 20px;
+    }
+    .cart_billing_section p{
+        display: inline-block;
+        width: 130px;
+    }
+    .cart_billing_section input[type=text], .cart_billing_section input[type=number]{
+        width: calc(330px - 110px - 8px);
+    }
+    .cart_billing_section .card_exp input{
+        width: 60px;
+    }
+    .cart_billing_section .card_exp > p + input + p{
+        width: 10px;
+    }
+
+
+/*------------------------------------------------------------------*/
+/*  END OF Cart Page   */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Admin Orders Dashboard Page   */
+/*------------------------------------------------------------------*/
+.form_admin_orders{
+    margin: 20px;
+    text-align: left;
+    position: relative;
+}
+    .form_admin_orders select{
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+
+/*------------------------------------------------------------------*/
+/*  Additional for Admin Orders Dashboard Table Section    */    
+/*------------------------------------------------------------------*/
+.admin_orders_table td:nth-child(5){
+    text-align: right;
+}
+.admin_orders_table td:first-child{
+    text-align: center;
+}
+
+/*------------------------------------------------------------------*/
+/*  END OF Admin Orders Dashboard Page    */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Admin Order Details Page   */
+/*------------------------------------------------------------------*/
+/*  Admin Order Info Summary Section   */
+/*------------------------------------------------------------------*/
+.admin_order_info{
+    width: 300px;
+    margin: 20px;
+    padding: 10px;
+    display: inline-block;
+    text-align: left;
+    background-color: var(--color-secondary-light);
+    border-radius: 7px;
+    box-shadow: var(--shadow);
+}
+    .admin_order_info h4 + h4, .admin_order_info h4:nth-of-type(3){
+        margin-top: 20px;
+    }
+    .admin_order_info span{
+        margin-left: 15px;
+        display: block;
+    }
+    .admin_order_info p{
+        display: inline-block;
+    }
+    .admin_order_info p:first-child{
+        width: 60px;
+    }
+    .admin_order_info + aside{
+        width: calc(100% - 300px - 40px - 20px - 40px - 10px);
+        display: inline-block;
+        vertical-align: top;
+        margin: 20px;
+    }
+
+/*------------------------------------------------------------------*/
+/*  Admin Order Info Table Section   */
+/*------------------------------------------------------------------*/
+.admin_order_info_table{
+    width: 100%;
+}
+.admin_order_info_table td{
+    text-align: right;
+}
+.admin_order_info_table td:nth-child(2), .admin_order_info_table td:nth-child(1){
+    text-align: left;
+}
+
+/*------------------------------------------------------------------*/
+/*  Admin Order Info Others Section   */
+/*------------------------------------------------------------------*/
+.admin_order_info_status{
+    margin-top: 30px;
+    text-align: left;
+    position: relative;
+}
+    .admin_order_info_status .in_process_color{
+        background-color: rgb(255, 183, 0);
+        color: var(--color-dark);
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 7px;
+    }
+    .admin_order_info_status .shipped_color{
+        background-color: rgb(126, 255, 126);
+        color: var(--color-dark);
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 7px;
+    }
+    .admin_order_info_status > p, .admin_order_info_status > aside{
+        padding: 5px;
+        background-color: var(--color-secondary-light);
+        width: fit-content;
+    }
+    .admin_order_info_status > aside{
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: var(--color-secondary-light);
+        width: 20%;
+        text-align: right;
+        border-radius: 7px;
+        box-shadow: var(--shadow);
+        padding: 15px;
+    }
+        .admin_order_info_status > aside span{
+            display: block;
+        }
+            .admin_order_info_status > aside span p:first-child{
+                display: inline-block;
+                text-align: left;
+                width: 50%;
+            }
+            .admin_order_info_status > aside span p + p{
+                width: 50%;
+                display: inline-block;
+            }
+
+/*------------------------------------------------------------------*/
+/*  END OF Admin Order Details Page   */
+/*------------------------------------------------------------------*/
+
+
+/*------------------------------------------------------------------*/
+/*  Admin Products Dashboard Page   */
+/*------------------------------------------------------------------*/
+.form_admin_products{
+    margin: 20px;
+    text-align: left;
+    position: relative;
+}
+/*------------------------------------------------------------------*/
+/*  Additional for Admin Products Dashboard Table Section   */
+/*------------------------------------------------------------------*/
+.admin_products_table td:first-child{
+    height: 50px;
+}
+.admin_products_table a > p{
+    display: inline-block;
+    width: 45px;
+    margin: 0 3px;
+    padding: 10px;
+    outline: 1px solid #a3a3a3;
+}
+    .admin_products_table a:first-child > p:hover{
+        background-color: #1975ff;
+        color: white;
+    }
+    .admin_products_table a:last-child > p:hover{
+        background-color: rgb(255, 47, 47);
+        color: white;
+    }
+.admin_products_table td:nth-child(4), .admin_products_table td:nth-child(5){
+    text-align: right;
+}
+
+/*------------------------------------------------------------------*/
+/*  Delete Product Confirmation Box Section   */
+/*------------------------------------------------------------------*/
+.modal_bg_delete_product{
+    z-index: 1;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(25, 117, 255, 0.14);
+}
+.admin_product_delete{
+    display: none;
+    position: absolute;
+    width: 300px;
+    height: 120px;
+    text-align: center;
+    padding: 30px;
+    border-radius: 7px;
+    box-shadow: var(--shadow);
+    color: var(--color-light-1);
+    top: 15%;
+    left: calc(50% - 150px);
+    background-color: var(--color-secondary-light);
+    z-index: 2;
+}
+    .admin_product_delete > p span{
+        font-weight: 1000;
+    }
+    .admin_product_delete > div{
+        display: block;
+        margin: 60px;
+        text-align: left;
+        position: relative;
+    }
+
+/*------------------------------------------------------------------*/
+/*  Admin Products Dashboard Modal Section   */
+/*------------------------------------------------------------------*/
+/*  Modal BG and Button for Close Modal Sub-Section   */
+/*------------------------------------------------------------------*/
+.modal_bg{
+    z-index: 1;
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(25, 117, 255, 0.14);
+}
+dialog .btn_close{
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    line-height: 0;
+    padding: 7px;
+    border: none;
+}
+
+/*------------------------------------------------------------------*/
+/*  Headings and General Form Sub-Section   */
+/*------------------------------------------------------------------*/
+.admin_products_add_edit{
+    display: none;
+    width: 630px;
+    position: absolute; /* in relation to body */
+    top: 15px;
+    padding: 20px;
+    border-radius: 7px;
+    border: none;
+    background: var(--color-secondary-light);
+    box-shadow: var(--shadow);
+    color: var(--color-light-1);
+    z-index: 2;
+}
+    .admin_products_add_edit h3{
+        margin-bottom: 10px;
+    }
+    .admin_products_add_edit form p{
+        display: inline-block;
+        width: 150px;
+        /* margin: 4px 10px 7px 10px; */
+        vertical-align: top;
+        margin: 10px 0;
+    }
+        .admin_products_add_edit form p + input{
+            height: 18px;
+            width: 420px;    
+            margin: 10px;
+        }
+        .admin_products_add_edit form p + textarea{
+            margin: 10px;
+            width: 438px;    
+            height: 80px;
+        }
+
+
+/*------------------------------------------------------------------*/
+/*  General Form Section - Dummy Select Tag Section   */
+/*------------------------------------------------------------------*/
+    .select_tag_container{
+        position: relative;
+        display: inline-block;
+        margin: 0px 15px 5px 5px;
+    }
+    .admin_products_add_edit .dummy_select_tag{
+        width: 445px;
+        height: 35px;
+        position: relative;
+        text-align: left;
+        border: 0.3px solid rgb(118, 118, 118);
+        padding: 1px 5px;
+        margin: 10px 0;
+        border-radius: 2px;
+    }
+        .dummy_select_tag span:last-child{
+            position: absolute; /* in relation to .dummy_select_tag */
+            right: -1px;
+            top: 5px;
+            padding: 2px;
+            width: 24px;
+            /* border: 1px solid black; */
+            /* background-color: rgb(235, 235, 235); */
+            text-align: center;
+        }
+        .select_tag_container ul{
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+    .admin_products_add_edit .product_categories{
+        position: absolute; /* in relation to .select_tag_container */
+        top: 26px;
+        left: 0px;
+        width: 428px;
+        outline: 1px solid black;
+    }
+        .product_category_edit_delete_section{
+            position: relative;
+            padding: 2px 0;
+            background: #fff;
+        }
+            .product_category_btn{
+                display: inline-block;
+                vertical-align: middle;
+                height: 24px;
+                visibility: hidden;
+            }
+                .form_product_category_edit{
+                    display: inline;
+                }
+                    .product_category_text_input{
+                        height: 24px;
+                        border: none;
+                        /* width: 328px; */
+                        width: 300px;
+                        padding: 1px 10px;
+                    }
+                .btn_product_category_edit, .btn_product_category_delete{
+                    outline: 1px solid #a3a3a3;
+                    padding: 4px 9px;
+                    color: white;
+                    background-color: #1975ff;
+                }
+                    .btn_product_category_edit:hover, .btn_product_category_delete:hover{
+                        cursor: pointer;
+                    }
+                .btn_product_category_delete{
+                    background-color: rgb(255, 47, 47);
+                }
+.waiting_icon{
+    height: 100%;
+    display: inline-block;
+    visibility: hidden;
+}
+    .waiting_icon img{
+        height: 100%;
+    }
+
+/*------------------------------------------------------------------*/
+/*  General Form Section - Dummy Select Tag Section - Delete Confirmation Box Section   */
+/*------------------------------------------------------------------*/
+.bg_category_confirm_delete{
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+.category_confirm_delete{
+    position: absolute;
+    width: 300px;
+    height: 120px;
+    border: 1px solid #a3a3a3;
+    text-align: center;
+    padding: 30px;
+    top: 15%;
+    left: calc(50% - 150px);
+    background-color: var(--color-secondary-light);
+}
+    .category_confirm_delete > p > span{
+        font-weight: 1000;
+    }
+    .category_confirm_delete > div{
+        display: block;
+        margin: 60px;
+        text-align: left;
+        position: relative;
+    }
+
+/*------------------------------------------------------------------*/
+/*  General Form Section - Upload Image Section   */
+/*------------------------------------------------------------------*/
+input[type=file]{
+    display: none;
+}
+
+.file_upload_label{
+    cursor: pointer;
+    vertical-align: bottom;
+    margin: 10px;
+    color: var(--color-dark);
+}
+.img_upload_container{
+    padding: 0;
+    margin-left: 180px;
+    width: fit-content;
+}
+.img_upload_section{
+    width: 363px;
+    padding: 5px 20px;
+    background-image: url('data:image/svg+xml, <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-list hamburger_icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/></svg>');
+    background-repeat: no-repeat;
+    background-position: 10px 22px;
+    padding-left: 45px;
+    list-style-type: none;
+}   
+    .img_upload_section .hamburger_icon, .img_upload_section figure, .img_upload_section p.img_filename, .img_upload_section .btn_img_upload_delete, .img_upload_section input[type=checkbox]{
+        vertical-align: middle;
+        display: inline-block;
+    }
+    .img_upload_section .hamburger_icon{
+        padding: 10px;
+    }
+    .img_upload_section figure{
+        width: 60px;
+        height: 60px;
+        vertical-align: middle;
+    }
+    .img_upload_section p.img_filename{
+        text-align: left;
+        width: 195px;
+        margin: 0 10px 0 5px;
+        overflow-x: auto;
+    }
+    .img_upload_section .btn_img_upload_delete{
+        padding: 8px;
+        outline: 1px solid #a3a3a3;
+        background-color: rgb(255, 47, 47);
+        color: white;
+        visibility: hidden;
+    }
+    .img_upload_section input[type=checkbox]{
+        margin: 0 5px 0 10px;
+    }
+
+/*------------------------------------------------------------------*/
+/*  General Form Section - Buttons Section   */
+/*------------------------------------------------------------------*/
+.products_add_edit_btn{
+    text-align: right;
+    height: fit-content;
+}
+
+
+
+
+/*------------------------------------------------------------------*/
+/*  END OF Admin Products Dashboard Modal Section   */
+/*------------------------------------------------------------------*/
+
+/*------------------------------------------------------------------*/
+/*  END OF Admin Products Dashboard Page   */
+/*------------------------------------------------------------------*/
