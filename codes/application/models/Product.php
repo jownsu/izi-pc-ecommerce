@@ -2,9 +2,6 @@
 
 class Product extends CI_Model{
 
-    private $select = "SELECT products.id as id, products.name, products.price, images.image 
-                        FROM products 
-                        INNER JOIN images ON products.id = images.product_id ";
     private $query = "";
     private $where = "";
     private $order_by = "";
@@ -16,11 +13,34 @@ class Product extends CI_Model{
     /*
         DOCU: This function will return the fetched value.
               This must be called last after all the query functions.
+              This is the rows that will return.
+              id, name, price, image
         OWNER: Jhones
     */
     public function get_all(){
+        $select = "SELECT products.id as id, products.name, products.price, images.image 
+                        FROM products 
+                        INNER JOIN images ON products.id = images.product_id ";
         $this->and_where('images.main = 1');
-        return $this->db->query($this->final_query(), $this->values)->result_array();
+        return $this->db->query($select . $this->query . $this->where . $this->order_by . $this->limit, $this->values)->result_array();
+    }
+
+    public function get_by_id($id){
+        $query = "SELECT products.id as id, products.name, 
+                            products.description, 
+                            products.price, 
+                            products.category_id,
+                            GROUP_CONCAT(IF(images.main = 0, images.image, NULL )) as sub_images, 
+                            GROUP_CONCAT(IF(images.main = 1, images.image, NULL)) as main_image
+                        FROM products 
+                        INNER JOIN images ON products.id = images.product_id
+                        WHERE products.id = ?
+                        GROUP BY products.id 
+                        LIMIT 1";
+
+        $values = array($this->security->xss_clean($id));
+
+        return $this->db->query($query, $values)->row_array();
     }
 
     /*
@@ -66,6 +86,10 @@ class Product extends CI_Model{
             $this->name('');
         }
 
+        if(!empty($input['limit'])){
+            $this->limit = "LIMIT " . $input['limit'];
+        }
+
         if(!empty($input['category'])){
             $this->category($input['category']);
         }
@@ -98,15 +122,6 @@ class Product extends CI_Model{
     */
     private function count_all(){
         return $this->db->query("SELECT COUNT(*) as count FROM products " . $this->query . $this->where, $this->values)->row_array()['count'];
-    }
-
-    /*
-        DOCU: This helper function will concatenate all the query properties
-              and return it.
-        OWNER: Jhones
-    */
-    private function final_query(){
-        return $this->select . $this->query . $this->where . $this->order_by . $this->limit;
     }
     
     /*

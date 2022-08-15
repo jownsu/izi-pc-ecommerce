@@ -22,7 +22,6 @@ class Products extends CI_Controller {
         }
 
         echo "<h1>This is Home Page</h1>";
-
     }
 
     /*
@@ -35,6 +34,25 @@ class Products extends CI_Controller {
         $categories = $this->category->get_all();
         $view_data = array( 'categories' => $categories );
         $this->load->view('product/products', $view_data);
+    }
+
+    public function show($id){
+        $page = $this->input->get('page') ? $this->input->get('page') : 1;
+
+        $product = $this->product->get_by_id($id);
+
+        $this->product->search(array(
+                                'category' => $product['category_id'],
+                                'limit' => 5
+                            ));
+        $products = $this->product->get_all();
+
+        $view_data  = array(
+                        'product'         => $product,
+                        'similar_products' => $products,
+                    );
+
+        $this->load->view('product/product', $view_data);
     }
 
     /*

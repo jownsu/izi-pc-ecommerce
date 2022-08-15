@@ -3,9 +3,9 @@
                         foreach($products as $product){
 ?>
                             <section class="products">
-                                <a href="../../../application/views/product/item_page.html">
+                                <a href="<?= base_url("products/show/{$product['id']}") ?>">
                                     <img src="<?= base_url("{$this->product->img_path}/{$product['image']}") ?>" alt="<?= $product['name'] ?>"/>
-                                    <p class="product-price">P <?= $product['price'] ?></p>
+                                    <p class="product-price">&#8369;<?= $product['price'] ?></p>
                                 </a>
                                 <p class="product-name"><?= $product['name'] ?></p>
                             </section>

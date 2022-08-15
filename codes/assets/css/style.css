@@ -401,7 +401,6 @@ figure.item{
 }
 .item_details .img_section{
     display: inline-block;
-    text-align: center;
     margin: 0 10px;
     padding: 14px 10px 10px 10px;
     background-color: var(--color-secondary-light);
@@ -430,7 +429,6 @@ figure.item{
     display: inline-block;
     vertical-align: top;
     margin: 0 10px 25px 10px;
-    width: calc(99.5% - 40px - 2*10px -  360px);
     background-color: var(--color-secondary-light);
     box-shadow: var(--shadow);
 }   
@@ -439,19 +437,24 @@ figure.item{
         background: var(--color-dark-1);
         padding: 10px 20px;
     }
-    .desc_section p{
-        width: calc(100% - 80px);
+    .desc_section > p{
         padding: 20px 40px 40px 40px;
     }
-.item_panel form{
+.item_panel .desc_section_footer{
     text-align: right;
     position: relative;
-    padding: 15px 40px;
+    padding: 30px 20px;
     border-top: 1px solid #a3a3a3;
 }
-    .item_panel form select{
-        width: 140px;
-    }
+
+.desc_section_footer > *{
+    display: inline-block;
+}
+
+.desc_section_footer .quantity{
+    width: 100px;
+    margin-left: 10px;
+}
 
 
 /*------------------------------------------------------------------*/
