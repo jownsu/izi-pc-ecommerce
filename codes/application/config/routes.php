@@ -53,6 +53,7 @@ $route['default_controller'] = 'products';
 $route['login'] = 'users/login';
 $route['register'] = 'users/register';
 $route['products'] = 'products/all_products';
+// $route['carts'] = 'products/carts';
 // $route['products/(:any)'] = "products/all_products?page=$1";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

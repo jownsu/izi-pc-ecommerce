@@ -14,8 +14,8 @@
 <body>
     <div class="container-xl _container">
         <header class="d-flex align-items-center">
-            <a href="products_page.html"><h2>Izi PC</h2></a>
-            <a class="ms-auto" href="cart_page.html"><h3>Shopping Cart (<span class="cart_quantity">4</span>)</h3></a>
+            <a href="<?= base_url('products') ?>"><h2>Izi PC</h2></a>
+            <a class="ms-auto" href="<?= base_url('carts') ?>"><h3>Shopping Cart (<span class="cart_count"><?= $cart_count ?></span>)</h3></a>
             <a class="btn-warning p-2 ms-3" href="<?= base_url('users/logout') ?>">Logout</a>
         </header>
         <main>

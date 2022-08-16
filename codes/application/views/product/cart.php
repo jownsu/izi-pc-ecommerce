@@ -9,13 +9,15 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-grid.min.css" integrity="sha512-Aa+z1qgIG+Hv4H2W3EMl3btnnwTQRA47ZiSecYSkWavHUkBF2aPOIIvlvjLCsjapW1IfsGrEO3FU693ReouVTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="<?= base_url('assets/css/normalize.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="<?= base_url('assets/js/product/cart.js') ?>"></script>
 </head>
 <body>
     <div class="container-xl _container">
         <header class="d-flex align-items-center">
-            <a href="products_page.html"><h2>Izi PC</h2></a>
-            <a class="ms-auto" href="cart_page.html"><h3>Shopping Cart (<span class="cart_quantity">4</span>)</h3></a>
+            <a href="<?= base_url('products') ?>"><h2>Izi PC</h2></a>
+            <a class="ms-auto" href="<?= base_url('carts') ?>"><h3>Shopping Cart (<span class="cart_count"><?= count($cart) ?></span>)</h3></a>
             <a class="btn-warning p-2 ms-3" href="<?= base_url('users/logout') ?>">Logout</a>
         </header>
         <main>
@@ -30,7 +32,40 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="color0">
+<?php 
+        if(!empty($cart)){
+            $total_price = 0;
+            foreach($cart as $product){
+                $total_price += $product['quantity'] * $product['price'];
+?>
+                        <tr>
+                            <td><?= $product['name'] ?></td>
+                            <td class="price">&#8369;<span><?= $product['price'] ?></span></td>
+                            <td>
+                                <form action="<?= base_url('carts/update_cart') ?>" method="post" class="update_cart_form">
+                                    <input class="csrf" type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
+                                    <input type="hidden" name="cart_id" value="<?= $product['id'] ?>"/>
+                                    <input type="number" name="quantity" value="<?= $product['quantity'] ?>" class="quantity_input">
+                                    <input type="submit" value="Update" class="btn-plain p-2">
+                                </form>
+                                <form action="<?= base_url('carts/remove_cart') ?>" method="post" class="remove_cart_form">
+                                    <input class="csrf" type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
+                                    <input type="hidden" name="cart_id" value="<?= $product['id'] ?>"/>
+                                    <button class="btn-warning p-2 ms-md-1" type="submit">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </td>
+                            <td class="total_price">&#8369;<span><?= $product['quantity'] * $product['price'] ?></span></td>
+                        </tr>
+<?php
+            }
+        }
+?>
+                        <!-- <tr class="color0">
                             <td>T-shirt</td>
                             <td>$19.99</td>
                             <td>
@@ -65,12 +100,12 @@
                                 </form>
                             </td>
                             <td>$19.99</td>
-                        </tr>
+                        </tr> -->
                     </tbody>
                 </table>
                 <section class="cart_total_section">
-                    <h4>Total: <span class="cart_total_amount">$49.96</span></h4>
-                    <p><a class="btn-secondary py-2 px-3" href="products_page.html">Continue Shopping</a></p>
+                    <h4>Total: &#8369;<span class="cart_total_amount"><?= $total_price ?></span></h4>
+                    <p><a class="btn-secondary py-2 px-3" href="<?= base_url('products') ?>">Continue Shopping</a></p>
                 </section>
             </section>
 

@@ -79,9 +79,17 @@ table{
     border-collapse: collapse;
     width: 100%;
     background-color: var(--color-secondary-light);
+    border: 1px solid var(--color-dark);
 }
 td, th{
     padding: 15px 20px;
+}
+
+table tbody tr:nth-child(even){
+    background-color: var(--color-secondary-dark);
+}
+table tbody tr:nth-child(odd){
+    background-color: var(--color-secondary);
 }
 thead{
     background-color: var(--color-dark-1);
@@ -107,10 +115,6 @@ button{
 a{
     text-decoration: none;
 }
-.color1{
-    background-color: var(--color-secondary-dark);
-}
-
 .auth-form {
     width: 100%;
     max-width: 500px;
@@ -512,6 +516,27 @@ figure.item{
 .cart_total_section > p{
     margin: 15px 0 30px 0;
 }
+
+
+/*------------------------------------------------------------------*/
+/*  Update Form Section  */
+/*------------------------------------------------------------------*/
+
+    .update_cart_form .quantity_input {
+        font-family: inherit;
+        color: inherit;
+        background: transparent;
+        width: 100px;
+        text-align: center;
+        outline: none;
+        border: none;
+    }
+
+    .quantity_input.active{
+        border-bottom: 2px solid var(--color-primary);
+    }
+
+
 
 /*------------------------------------------------------------------*/
 /*  Cart Billing Section   */

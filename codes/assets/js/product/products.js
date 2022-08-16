@@ -98,7 +98,7 @@ function pageNumHighlight(pageNum){
 */
 function getProducts(page = 1, category = ''){
     $.get("products/index_html?page=" + page + '&category=' + category + '&' + $('#search_form').serialize() + '&' + $('#order_form').serialize(), function(res){
-        $('.products_container').html(res.html_response)
+        $('.products_container').html(res)
         pageNumHighlight(page);
     })
 }

@@ -25,24 +25,6 @@ class Product extends CI_Model{
         return $this->db->query($select . $this->query . $this->where . $this->order_by . $this->limit, $this->values)->result_array();
     }
 
-    public function get_by_id($id){
-        $query = "SELECT products.id as id, products.name, 
-                            products.description, 
-                            products.price, 
-                            products.category_id,
-                            GROUP_CONCAT(IF(images.main = 0, images.image, NULL )) as sub_images, 
-                            GROUP_CONCAT(IF(images.main = 1, images.image, NULL)) as main_image
-                        FROM products 
-                        INNER JOIN images ON products.id = images.product_id
-                        WHERE products.id = ?
-                        GROUP BY products.id 
-                        LIMIT 1";
-
-        $values = array($this->security->xss_clean($id));
-
-        return $this->db->query($query, $values)->row_array();
-    }
-
     /*
         DOCU: This query function will append WHERE statement
               to search for a specified pattern by name.
@@ -131,6 +113,30 @@ class Product extends CI_Model{
     private function and_where($query){
         $this->where .= empty($this->where) ? 'WHERE ' : 'AND ';
         $this->where .= $query . ' ';
+    }
+
+    /*
+        DOCU: This function will get the product by ID.
+              The rows that will return are id, name, description,
+              price, category_id, sub_images, main_image
+        OWNER: Jhones
+    */
+    public function get_by_id($id){
+        $query = "SELECT products.id as id, products.name, 
+                            products.description, 
+                            products.price, 
+                            products.category_id,
+                            GROUP_CONCAT(IF(images.main = 0, images.image, NULL )) as sub_images, 
+                            GROUP_CONCAT(IF(images.main = 1, images.image, NULL)) as main_image
+                        FROM products 
+                        INNER JOIN images ON products.id = images.product_id
+                        WHERE products.id = ?
+                        GROUP BY products.id 
+                        LIMIT 1";
+
+        $values = array($this->security->xss_clean($id));
+
+        return $this->db->query($query, $values)->row_array();
     }
 
 }
