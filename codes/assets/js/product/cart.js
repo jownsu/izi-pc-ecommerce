@@ -1,10 +1,10 @@
 $(document).ready(function(){
 
     /*  For submitting forms, redirect to page    */
-    $(document).on("submit", "form", function(){
-        window.location = $(this).attr("action");
-        return false;
-    });
+    // $(document).on("submit", "form", function(){
+    //     window.location = $(this).attr("action");
+    //     return false;
+    // });
     /**********************************************/
 
     /*  When delete cart form is submitted   */
@@ -39,13 +39,12 @@ $(document).ready(function(){
 
     /* When quantity is clicked */
     $(document).on('change', '.update_cart_form .quantity_input', function(){
-        // quantity_hold = $(this).val()
         $(this).addClass('active')
     })
 
     /**********************************************/
 
-    /* WHen update cart form is submitted */
+    /* When update cart form is submitted */
     $('form.update_cart_form').submit(function(){
         var quantity_input = $(this).children('.quantity_input')
         var price = $(this).parent().siblings('.price').children('span').text()
@@ -83,6 +82,48 @@ $(document).ready(function(){
     })
 
 
+    /**********************************************/
+
+    /* */
+    $('#billing_checkbox').change(function(){
+        if(this.checked == true){
+            $("input[name='b_first_name']")
+                .prop( "disabled", true)
+                .val($("input[name='s_first_name']").val());
+
+            $("input[name='b_last_name']")
+                .prop( "disabled", true)
+                .val($("input[name='s_last_name']").val());
+
+            $("input[name='b_address1']")
+                .prop( "disabled", true)
+                .val($("input[name='s_address1']").val());
+
+            $("input[name='b_address2']")
+                .prop( "disabled", true)
+                .val($("input[name='s_address2']").val());
+
+            $("input[name='b_city']")
+                .prop( "disabled", true)
+                .val($("input[name='s_city']").val());
+
+            $("input[name='b_state']")
+                .prop( "disabled", true)
+                .val($("input[name='s_state']").val());
+
+            $("input[name='b_zipcode']")
+                .prop( "disabled", true)
+                .val($("input[name='s_zipcode']").val());
+        }else{
+            $("input[name='b_first_name']").prop( "disabled", false).val('');
+            $("input[name='b_last_name']").prop( "disabled", false).val('');
+            $("input[name='b_address1']").prop( "disabled", false).val('');
+            $("input[name='b_address2']").prop( "disabled", false).val('');
+            $("input[name='b_city']").prop( "disabled", false).val('');
+            $("input[name='b_state']").prop( "disabled", false).val('');
+            $("input[name='b_zipcode']").prop( "disabled", false).val('');
+        }
+    })
     /**********************************************/
     
     $('.quantity_input').change(function(){

@@ -118,56 +118,14 @@ class Cart extends CI_Model{
     }
 
     /*
-        DOCU:  This function will validate the add to cart form.
-               If it passed the validation it will return TRUE else
-               it wil return all the errors. 
+        DOCU:  This function will delete all the product in 
+               the cart of the user.
         OWNER: Jhones    
     */
-    public function validate_add_to_cart(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("quantity", "Quantiy", "trim|required|numeric|greater_than[0]");
-        $this->form_validation->set_rules("product_id", "Product ID", "trim|required|numeric");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors();
-        }
-
-        return TRUE;
-    }
-
-    /*
-        DOCU:  This function will validate the remove to cart form.
-               If it passed the validation it will return TRUE else
-               it wil return all the errors. 
-        OWNER: Jhones    
-    */
-    public function validate_remove_cart(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("cart_id", "Cart ID", "trim|required|numeric");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors();
-        }
-
-        return TRUE;
-    }
-    
-    /*
-        DOCU:  This function will validate the update cart form.
-               If it passed the validation it will return TRUE else
-               it wil return all the errors. 
-        OWNER: Jhones    
-    */
-    public function validate_update_cart(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("cart_id", "Cart ID", "trim|required|numeric");
-        $this->form_validation->set_rules("quantity", "Quantity", "trim|required|numeric|greater_than[0]");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors();
-        }
-
-        return TRUE;
+    public function reset_cart($user_id){
+        $query = "DELETE FROM carts WHERE user_id = ?";
+        $values = array($this->security->xss_clean($user_id));
+        return $this->db->query($query, $values);
     }
 }
 

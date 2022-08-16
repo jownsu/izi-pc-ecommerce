@@ -12,6 +12,15 @@ class User extends CI_Model{
     }
 
     /*
+        DOCU: This function will fetch admin by email and return it
+        OWNER: Jhones
+    */
+    public function find_admin_by_email($email){
+        $query = "SELECT * FROM users WHERE email = ? AND is_admin = 1 LIMIT 1";
+        return $this->db->query($query, $this->security->xss_clean($email))->row_array();
+    }
+
+    /*
         DOCU: This function will fetch user by email and return it
         OWNER: Jhones
     */
@@ -92,94 +101,6 @@ class User extends CI_Model{
         $query = "UPDATE users SET password = ?, salt = ?, updated_at = NOW() WHERE id = ?";
         $values = array($encrypted_password, $salt, $user_id);
         return $this->db->query($query, $values);
-    }
-
-    /* 
-        DOCU: This function will validate the input of register. 
-              If there is no error it will return true else it will
-              return all the errors.
-        OWNER: Jhones
-    */
-    public function validate_register_form(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("first_name", "First name", "trim|required|min_length[2]");
-        $this->form_validation->set_rules("last_name", "Last name", "trim|required|min_length[2]");
-        $this->form_validation->set_rules(
-                                        "email", 
-                                        "Email", 
-                                        "trim|required|valid_email|is_unique[users.email]", 
-                                        array("is_unique" => "Email is already taken")
-                                    );
-        $this->form_validation->set_rules("contact_no", "Contact number", "trim|required|numeric");
-        $this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]");
-        $this->form_validation->set_rules("confirm_password", "Confirm password", "trim|required|matches[password]");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors("<p class='alert-error'>", "</p>");
-        }
-
-        return TRUE;
-    }
-
-    /* 
-        DOCU: This function will validate the input of log in. 
-              If there is no error it will return true else it will
-              return all the errors.
-        OWNER: Jhones
-    */
-    public function validate_login_form(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("email", "Email", "trim|required|valid_email");
-        $this->form_validation->set_rules("password", "Password", "trim|required|min_length[8]");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors("<p class='alert-error'>", "</p>");
-        }
-
-        return TRUE;
-    }
-
-    /* 
-        DOCU: This function will validate the input of edit profile form. 
-              If there is no error it will return true else it will
-              return all the errors.
-        OWNER: Jhones
-    */
-    public function validate_edit_profile_form(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules(
-                                        "email", 
-                                        "Email", 
-                                        "trim|required|valid_email|is_unique[users.email]", 
-                                        array("is_unique" => "Email is already taken")
-                                    );
-        $this->form_validation->set_rules("first_name", "First name", "trim|required");
-        $this->form_validation->set_rules("last_name", "Last name", "trim|required");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors("<p class='alert-error'>", "</p>");
-        }
-
-        return TRUE;
-    }
-
-    /* 
-        DOCU: This function will validate the input of edit password form. 
-              If there is no error it will return true else it will
-              return all the errors.
-        OWNER: Jhones
-    */
-    public function validate_edit_password_form(){
-        $this->load->library("form_validation");
-        $this->form_validation->set_rules("old_password", "Old password", "trim|required");
-        $this->form_validation->set_rules("new_password", "New password", "trim|required|min_length[8]");
-        $this->form_validation->set_rules("confirm_password", "Confirm password", "trim|required|matches[new_password]");
-
-        if($this->form_validation->run() === FALSE){
-            return validation_errors("<p class='alert-error'>", "</p>");
-        }
-
-        return TRUE;
     }
 }
 

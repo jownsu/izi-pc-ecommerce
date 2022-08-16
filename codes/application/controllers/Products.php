@@ -18,8 +18,6 @@ class Products extends CI_Controller {
     */
 	public function index(){
         $user_id = $this->get_user();
-
-        echo "<h1>This is Home Page</h1>";
     }
 
     /*
@@ -103,13 +101,20 @@ class Products extends CI_Controller {
     */
     private function get_user(){
         $user_id = $this->session->userdata('user_id');
+        $is_admin = $this->session->userdata('is_admin');
+
         if($user_id === NULL){
             redirect('/login');
+            exit();
+        }
+        else if ($is_admin == 1){
+            redirect('/dashboard/orders');
             exit();
         }
         
         return $user_id;
     }
+
 
     /*
         DOCU:  This function will return regenerated csrf.
