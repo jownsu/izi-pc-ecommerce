@@ -110,11 +110,6 @@ $config = array(
                 'rules' => 'trim|required'
         ),
         array(
-                'field' => 'b_address2',
-                'label' => 'Address 2',
-                'rules' => 'trim|required'
-        ),
-        array(
                 'field' => 'b_city',
                 'label' => 'City',
                 'rules' => 'trim|required'
@@ -142,11 +137,6 @@ $config = array(
         array(
                 'field' => 's_address1',
                 'label' => 'Address',
-                'rules' => 'trim|required'
-        ),
-        array(
-                'field' => 's_address2',
-                'label' => 'Address 2',
                 'rules' => 'trim|required'
         ),
         array(

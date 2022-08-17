@@ -69,9 +69,16 @@
                         </tbody>
                     </table>
                     <section class="cart_total_section">
-                        <h4>Total: &#8369;<span class="cart_total_amount"><?= !empty($total_price) ? $total_price : 0 ?></span></h4>
-                        <p><a class="btn-secondary py-2 px-3" href="<?= base_url('products') ?>">Continue Shopping</a></p>
+                        <div>
+                            <p class="lbl">Shipping fee: </p>
+                            <p class="val">&#8369;50</p>
+                        </div>
+                        <div>
+                            <p class="lbl">Total: </p>
+                            <p class="val">&#8369;<span class="cart_total_amount"><?= !empty($total_price) ? $total_price + 50 : 0 ?></span></p>
+                        </div>
                     </section>
+                    <a class="btn-secondary mt-3 py-2 px-3" href="<?= base_url('products') ?>">Continue Shopping</a>
                 </section>
                 <section>
 <?php
@@ -83,7 +90,7 @@
 <?php
     }
 ?>
-                    <form action="<?= base_url('Orders/create') ?>" method="post" class="payment_form">
+                    <form action="<?= base_url('Orders/create') ?>" method="post" class="payment_form form-validation"  data-cc-on-file="false" data-stripe-publishable-key="<?= $this->config->item('stripe_key') ?>" id="payment-form">
                         <input type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
                         <div class="row">
                             <div class="col col-md-6">
@@ -131,11 +138,11 @@
                                     <span><p>State: </p><input type="text" name="b_state"/></span>
                                     <span><p>Zipcode: </p><input type="number" name="b_zipcode"/></span>
 
-                                    <span class="card_billing"><p>Card: </p><input type="number" name="b_card_number"/></span>
-                                    <span><p>Security Code: </p><input type="number" name="b_card_security"/></span>
+                                    <span class="card_billing"><p>Card: </p><input type="text" class="card-number" name="b_card_number"/></span>
+                                    <span><p>Cvc: </p><input type="number" class="card-cvc" name="b_card_security"/></span>
                                     <span class="card_exp">
-                                        <p>Expiration: </p><input type="number" name="b_card_exp_month" placeholder="(mm)"/>
-                                        <p>/</p><input type="number" name="b_card_exp_year" placeholder="(year)"/>
+                                        <p>Expiration: </p><input type="number" class="card-expiry-month" name="b_card_exp_month" placeholder="(mm)"/>
+                                        <p>/</p><input type="number" class="card-expiry-year" name="b_card_exp_year" placeholder="(year)"/>
                                     </span>
                                     <input type="submit" value="Pay" class="btn-primary px-3  py-2 ms-auto d-block"/>
                                 </div>
@@ -145,5 +152,65 @@
                 </section>
             </main>
         </div>
+
+        <!-- STRIPE CODES -->
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+        <script type="text/javascript">
+            $(function () {
+                var $stripeForm = $(".form-validation");
+                $('form.form-validation').bind('submit', function (e) {
+                    var $stripeForm = $(".form-validation"),
+                        inputSelector = ['input[type=email]', 'input[type=password]',
+                            'input[type=text]', 'input[type=file]',
+                            'textarea'
+                        ].join(', '),
+                        $inputs = $stripeForm.find('.required').find(inputSelector),
+                        $errorMessage = $stripeForm.find('div.error'),
+                        valid = true;
+                    $errorMessage.addClass('hide');
+                    $('.has-error').removeClass('has-error');
+                    $inputs.each(function (i, el) {
+                        var $input = $(el);
+                        if ($input.val() === '') {
+                            $input.parent().addClass('has-error');
+                            $errorMessage.removeClass('hide');
+                            e.preventDefault();
+                        }
+                    });
+                    if (!$stripeForm.data('cc-on-file')) {
+                        e.preventDefault();
+                        Stripe.setPublishableKey($stripeForm.data('stripe-publishable-key'));
+                        Stripe.createToken({
+                            number: $('.card-number').val(),
+                            cvc: $('.card-cvc').val(),
+                            exp_month: $('.card-expiry-month').val(),
+                            exp_year: $('.card-expiry-year').val()
+                        }, stripeResponseHandler);
+                    }
+                });
+                function stripeResponseHandler(status, res) {
+                    if (res.error) {
+                        console.log(res.error.message)
+                        $.toast({
+                            heading: 'Error',
+                            text: res.error.message,
+                            icon: 'error',
+                            showHideTransition: 'slide',
+                            position: 'bottom-right',
+                            hideAfter: 5000, 
+                        })
+                        // $('.error')
+                        //     .removeClass('hide')
+                        //     .find('.alert')
+                        //     .text(res.error.message);
+                    } else {
+                        var token = res['id'];
+                        $stripeForm.find('input[type=text]').empty();
+                        $stripeForm.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
+                        $stripeForm.get(0).submit();
+                    }
+                }
+            });
+        </script>
     </body>
 </html>

@@ -37,6 +37,12 @@ $config['base_url'] = 'http://v88.izipc.com/';
 */
 $config['index_page'] = '';
 
+#--------------------------------------------------------------------
+# Stripe
+#--------------------------------------------------------------------
+$config['stripe_key'] = 'pk_test_51LR7TyLMi8lskCf0T5e38yZieuztVferAImUPmMnOmCr1C91Q0VMmlOyKTaEAiIvmiBg303U4U09j5bBF2W1fzxo00PWToSkqh';
+$config['stripe_secret'] = 'sk_test_51LR7TyLMi8lskCf07fBzJmbKvY6AZvd11k6Ol4AiGTHwDruEVW4pPEgETJzCxEE2IylmsiP9zVC32jypgWAhvis700UwqAJbZT';
+
 /*
 |--------------------------------------------------------------------------
 | URI PROTOCOL

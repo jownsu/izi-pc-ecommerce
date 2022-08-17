@@ -8,7 +8,7 @@ class Orders extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('order');
         $this->load->model('cart');
-        // $this->load->library('stripegateway');
+        $this->load->library('stripegateway');
     }
 
     /*
@@ -97,15 +97,17 @@ class Orders extends CI_Controller {
 
         if($order_id){
             //stripe
-            // $total = 0;
-            // foreach($cart as $item){
-            //     $total += $item['price'] * $item['quantity'];
-            // }
-            // $msg = $this->stripegateway->checkout($input, $total);
+            $total = 0;
+            foreach($cart as $item){
+                $total += $item['price'] * $item['quantity'];
+            }
+            // + 50 for shipping fee
+            $total += 50;
+            $stripe_res = $this->stripegateway->checkout($input, $total, $this->input->post('stripeToken'));
             //end stripe
 
             $this->order->add_order_product($order_id, $cart);
-            $this->order->add_order_billing($order_id, $input);
+            $this->order->add_order_billing($order_id, $input, $stripe_res['id']);
             $this->order->add_order_shipping($order_id, $input);
 
             $this->cart->reset_cart($user['id']);
@@ -191,6 +193,7 @@ class Orders extends CI_Controller {
             'is_admin' => $is_admin
         );
     }
+    
     /*
         DOCU:  This function will return regenerated csrf.
         OWNER: Jhones

@@ -161,8 +161,8 @@ class Order extends CI_Model{
                to the order.
         OWNER: Jhones
     */
-    function add_order_billing($order_id, $input){
-        $query = "INSERT INTO billing (order_id, first_name, last_name, address, address_2, city, state, zipcode, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+    function add_order_billing($order_id, $input, $transac_id){
+        $query = "INSERT INTO billing (order_id, first_name, last_name, address, address_2, city, state, zipcode, transaction_id, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
 
         $values = array(
             $this->security->xss_clean($order_id),
@@ -172,7 +172,8 @@ class Order extends CI_Model{
             $this->security->xss_clean($input['b_address2']),
             $this->security->xss_clean($input['b_city']),
             $this->security->xss_clean($input['b_state']),
-            $this->security->xss_clean($input['b_zipcode'])
+            $this->security->xss_clean($input['b_zipcode']),
+            $this->security->xss_clean($transac_id)
         );
 
         return $this->db->query($query, $values);

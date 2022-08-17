@@ -511,10 +511,23 @@ figure.item{
 }
 .cart_table_section h4{
     padding: 10px 20px;
-    background-color: var(--color-secondary-light);
 }
-.cart_total_section > p{
-    margin: 15px 0 30px 0;
+.cart_total_section{
+    background-color: var(--color-secondary-light);
+    padding: 10px 50px;
+}
+.cart_total_section div {
+    padding: 5px;
+}
+.cart_total_section div .lbl{
+    display: inline-block;
+    width: 150px;
+    font-weight: 400;
+}
+.cart_total_section div .val{
+    display: inline-block;
+    width: 90px;
+    font-weight: 600;
 }
 
 
