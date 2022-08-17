@@ -7,108 +7,33 @@
         <title>(Dashboard Orders)</title>
         <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-grid.min.css" integrity="sha512-Aa+z1qgIG+Hv4H2W3EMl3btnnwTQRA47ZiSecYSkWavHUkBF2aPOIIvlvjLCsjapW1IfsGrEO3FU693ReouVTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap-utilities.min.css" integrity="sha512-zaB1zReS2QONsLmpHDzDuNInQ7m4rswNiOXRWYkwxx3YDLz0AuryPJCbsWeoUM/7ZEOY0ZYXQdkei0Kac5gc1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="<?= base_url('assets/css/normalize.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="<?= base_url('assets/js/admin/orders_dashboard.js') ?>"></script>
     </head>
     <body>
         <div class="container-xl _container">
             <header class="d-flex align-items-center">
-                <a href="<?= base_url('/') ?>" class="me-3"><h2>Dashboard</h2></a>
-                <a href="<?= base_url('/') ?>" class="me-3"><h3>Orders</h3></a>
-                <a href="<?= base_url('/') ?>" class="me-3"><h3>Products</h3></a>
+                <p class='me-3 fs-3 fw-bold'>Dashboard</p>
+                <a href="<?= base_url('dashboard/orders') ?>" class="me-3"><h3>Orders</h3></a>
+                <a href="<?= base_url('dashboard/products') ?>" class="me-3"><h3>Products</h3></a>
                 <a class="btn-warning p-2 ms-auto" href="<?= base_url('users/logout') ?>">Log off</a>
             </header>
             <main>
                 <p class="message_admin_orders"></p>
-                <form class="form_admin_orders" action="" method="post">
-                    <input type="search" name="admin_orders_search" placeholder="&#x1F50D; search" />
-                    <select name="admin_orders_status">
-                        <option value="0">Show All</option>
-                        <option>Order in process</option>
-                        <option>Shipped</option>
-                        <option>Cancelled</option>
+                <form class="form_admin_orders">
+                    <input type="search" name="search" placeholder="Search" />
+                    <select name="status">
+                        <option value="">Show All</option>
+                        <option value="1">Order in process</option>
+                        <option value="2">Shipped</option>
+                        <option value="3">Cancelled</option>
                     </select>
                 </form>
-                <table class="admin_orders_table">
-                    <thead>
-                        <tr>
-                            <th>Order ID</th>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Billing Address</th>
-                            <th>Total</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="admin_order_detail_page.html">100</a></td>
-                            <td>Bob</td>
-                            <td>9/6/2014</td>
-                            <td>123 dojo way Bellevue WA 98005</td>
-                            <td>$149.99</td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="product_id" value="product_id"/>
-                                    <select name="admin_orders_update">
-                                        <option>Order in process</option>
-                                        <option selected>Shipped</option>
-                                        <option>Cancelled</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr class="color1">
-                            <td><a href="admin_order_detail_page.html">99</a></td>
-                            <td>Bob</td>
-                            <td>9/6/2014</td>
-                            <td>123 dojo way Bellevue WA 98005</td>
-                            <td>$149.99</td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="product_id" value="product_id"/>
-                                    <select name="admin_orders_update">
-                                        <option>Order in process</option>
-                                        <option selected>Shipped</option>
-                                        <option>Cancelled</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="admin_order_detail_page.html">98</a></td>
-                            <td>Bob</td>
-                            <td>9/6/2014</td>
-                            <td>123 dojo way Bellevue WA 98005</td>
-                            <td>$149.99</td>
-                            <td>
-                                <form action="" method="post">
-                                    <input type="hidden" name="product_id" value="product_id"/>
-                                    <select name="admin_orders_update">
-                                        <option value="1">Order in process</option>
-                                        <option value="2" selected>Shipped</option>
-                                        <option value="3">Cancelled</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <section class="pagination">
-                    <a href="">1</a><!--
-                --><a href="">2</a><!--
-                --><a href="">3</a><!--
-                --><a href="">4</a><!--
-                --><a href="">5</a><!--
-                --><a href="">6</a><!--
-                --><a href="">7</a><!--
-                --><a href="">8</a><!--
-                --><a href="">9</a><!--
-                --><a href="">10</a><!--
-                --><a class="next_page" href="">&rsaquo;</a>
-                </section>
+                <div id="root"></div>
             </main>
         </div>
 

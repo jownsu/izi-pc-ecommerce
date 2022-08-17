@@ -8,92 +8,30 @@
         <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/jquery-ui.js') ?>"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-grid.min.css" integrity="sha512-Aa+z1qgIG+Hv4H2W3EMl3btnnwTQRA47ZiSecYSkWavHUkBF2aPOIIvlvjLCsjapW1IfsGrEO3FU693ReouVTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap-utilities.min.css" integrity="sha512-zaB1zReS2QONsLmpHDzDuNInQ7m4rswNiOXRWYkwxx3YDLz0AuryPJCbsWeoUM/7ZEOY0ZYXQdkei0Kac5gc1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="<?= base_url('assets/css/normalize.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
         <script src="<?= base_url('assets/js/admin/products_dashboard.js') ?>"></script>
     </head>
     <body>
         <div class="container-xl _container">
-            <header class="header_admin">
-                <a href="admin_orders_dashboard_page.html"><h2>Dashboard</h2></a>
-                <a href="admin_orders_dashboard_page.html"><h3>Orders</h3></a>
-                <a href="admin_products_dashboard_page.html"><h3>Products</h3></a>
-                <a class="nav_end" href="../login_register/login_page.html"><h3>Log off</h3></a>
+            <header class="d-flex align-items-center">
+                <p class='me-3 fs-3 fw-bold'>Dashboard</p>
+                <a href="<?= base_url('dashboard/orders') ?>" class="me-3"><h3>Orders</h3></a>
+                <a href="<?= base_url('dashboard/products') ?>" class="me-3"><h3>Products</h3></a>
+                <a class="btn-warning p-2 ms-auto" href="<?= base_url('users/logout') ?>">Log off</a>
             </header>
             <main>
                 <p class="message_admin_products"></p>
                 <section class="form_admin_products">
-                    <form class="form_admin_products_search" action="" method="post">
-                        <input type="search" name="admin_products_search" placeholder="&#x1F50D; search" />
+                    <form class="form_admin_products_search" action="<?= base_url('products/index_html') ?>">
+                        <input type="search" name="name" placeholder="Search by name" />
                     </form>
-                    <!-- <form class="form_admin_products_add" action="" method="post">
-                        <input class="btn_add_product" type="submit" name="add_product" value="Add new product" />
-                    </form> -->
-                    <!-- <form class="form_admin_products_add" action="" method="post"> -->
+
                     <button class="btn_add_product btn-primary px-3 py-2 d-block ms-auto" type="button">Add new product</button>
-                    <!-- </form> -->
                     
                 </section>
-                <table class="admin_products_table">
-                    <thead>
-                        <tr>
-                            <th>Picture</th>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Inventory Count</th>
-                            <th>Quantity Sold</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="color0 product_id_1">
-                            <td><img src="../../../application/views/assets/img/products/0/products.jpg" alt="t-shirt"></td>
-                            <td class="product_id">1</td>
-                            <td>Shirt</td>
-                            <td>123</td>
-                            <td>1000</td>
-                            <td>
-                                <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
-                                <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
-                            </td>
-                        </tr>
-                        <tr class="color1 product_id_2">
-                            <td><img src="../../../application/views/assets/img/products/0/products.jpg" alt="t-shirt"></td>
-                            <td class="product_id">2</td>
-                            <td>Hat</td>
-                            <td>456</td>
-                            <td>1000</td>
-                            <td>
-                                <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
-                                <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
-                            </td>
-                        </tr>
-                        <tr class="color0 product_id_3">
-                            <td><img src="../../../application/views/assets/img/products/0/products.jpg" alt="t-shirt"></td>
-                            <td class="product_id">3</td>
-                            <td>Mug</td>
-                            <td>789</td>
-                            <td>1000</td>
-                            <td>
-                                <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
-                                <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <section class="pagination">
-                        <a href="">1</a><!--
-                    --><a href="">2</a><!--
-                    --><a href="">3</a><!--
-                    --><a href="">4</a><!--
-                    --><a href="">5</a><!--
-                    --><a href="">6</a><!--
-                    --><a href="">7</a><!--
-                    --><a href="">8</a><!--
-                    --><a href="">9</a><!--
-                    --><a href="">10</a><!--
-                    --><a class="next_page" href="">&rsaquo;</a>
-                    </section>
+                <div id="root"></div>
             </main>
         </div>
 

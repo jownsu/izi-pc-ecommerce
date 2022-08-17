@@ -85,6 +85,14 @@ $config = array(
         )
     ),
 
+    'update_status' => array(
+        array(
+            'field' => 'status',
+            'label' => 'Status',
+            'rules' => 'trim|required|numeric'
+        )
+    ),
+
     'order' => array(
         array(
                 'field' => 'b_first_name',

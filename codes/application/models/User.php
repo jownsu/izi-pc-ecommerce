@@ -7,7 +7,7 @@ class User extends CI_Model{
         OWNER: Jhones
     */
     public function find_user_by_email($email){
-        $query = "SELECT * FROM users WHERE email = ? LIMIT 1";
+        $query = "SELECT * FROM users WHERE email = ? AND is_admin = 0 LIMIT 1";
         return $this->db->query($query, $this->security->xss_clean($email))->row_array();
     }
 

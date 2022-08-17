@@ -11,13 +11,20 @@ class Products extends CI_Controller {
     }
 
     /*
-        DOCU: This function will redirect to login page if 
-              the user is not logged in. Else it will render the
-              home page.
+        DOCU: This function is the default controller. If the user
+              is not logged in, it will redirect to login page. If
+              the user is admin it will redirect to dashboard else
+              it will redirect to products page.
         OWNER: Jhones
     */
 	public function index(){
-        $user_id = $this->get_user();
+        $user = $this->get_user();
+        if($user['is_admin'] == 1){
+            redirect('dashboard/orders');
+        }
+        else{
+            redirect('products/all_products');
+        }
     }
 
     /*
@@ -26,14 +33,24 @@ class Products extends CI_Controller {
         OWNER: Jhones
     */
     public function all_products(){
-        $user_id = $this->get_user();
+        $user = $this->get_user(true);
 
         $view_data = array(
                         'categories' => $this->category->get_all(),
-                        'cart_count' => $this->cart->cart_count($user_id)
+                        'cart_count' => $this->cart->cart_count($user['id'])
                     );
 
         $this->load->view('product/products', $view_data);
+    }
+
+    /*
+        DOCU: This function will render the products dashboard in admin side.
+              If the user is not admin it will redirect to products page.
+        OWNER: Jhones
+    */
+    public function dashboard(){
+        $this->get_user(true, 'admin');
+        $this->load->view('admin/products_dashboard');
     }
 
     /*
@@ -42,7 +59,7 @@ class Products extends CI_Controller {
         OWNER: Jhones
     */
     public function show($id){
-        $user_id = $this->get_user();
+        $user = $this->get_user(true);
         $page = $this->input->get('page') ? $this->input->get('page') : 1;
         $product = $this->product->get_by_id($id);
 
@@ -56,7 +73,7 @@ class Products extends CI_Controller {
 
         $view_data  = array(
                         'product'          => $product,
-                        'cart_count'       => $this->cart->cart_count($user_id),
+                        'cart_count'       => $this->cart->cart_count($user['id']),
                         'similar_products' => $similar_products,
                         'csrf'             => $this->generate_csrf(),
                         'success_msg'      => $this->session->flashdata('success_msg'),
@@ -73,12 +90,15 @@ class Products extends CI_Controller {
         OWNER: Jhones
     */
 	public function index_html(){
+        $user = $this->get_user();
         $page = $this->input->get('page') ? $this->input->get('page') : 1;
+
+        $item_per_page = $this->input->get('item_per_page') ? $this->input->get('item_per_page') : 15;
         $input = $this->input->get();
 
         $this->product->search($input);
 
-        $link_count = $this->product->paginate($page);
+        $link_count = $this->product->paginate($page, $item_per_page);
         $products = $this->product->get_all();
 
         $view_data = array(
@@ -87,7 +107,12 @@ class Products extends CI_Controller {
                         'page'       => $page
                     );
 
-		$this->load->view('partials/product/products', $view_data);
+        if($user['is_admin'] == 1){
+            $this->load->view('partials/admin/products', $view_data);
+        }
+        else{
+            $this->load->view('partials/product/products', $view_data);
+        }
 	}
 
     /****************************/
@@ -97,24 +122,33 @@ class Products extends CI_Controller {
     /*
         DOCU:  This function will get the user_id from session.
                If there is no user_id it wil redirect to login. 
+               If redirect set to true it will redirect based on 
+               the role of the user.
         OWNER: Jhones
     */
-    private function get_user(){
+    private function get_user($redirect = false, $type = 'user'){
         $user_id = $this->session->userdata('user_id');
         $is_admin = $this->session->userdata('is_admin');
 
         if($user_id === NULL){
             redirect('/login');
-            exit();
+        }   
+        else if($type == 'user' && $redirect == true){
+            if($is_admin == 1){
+                redirect('/dashboard/orders');
+            }
         }
-        else if ($is_admin == 1){
-            redirect('/dashboard/orders');
-            exit();
+        else if($type == 'admin' && $redirect == true){
+            if($is_admin == 0){
+                redirect('/products');
+            }
         }
         
-        return $user_id;
+        return array(
+            'id'       => $user_id,
+            'is_admin' => $is_admin
+        );
     }
-
 
     /*
         DOCU:  This function will return regenerated csrf.

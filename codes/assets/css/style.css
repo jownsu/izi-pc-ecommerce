@@ -617,34 +617,29 @@ figure.item{
 /*  Admin Order Info Summary Section   */
 /*------------------------------------------------------------------*/
 .admin_order_info{
-    width: 300px;
-    margin: 20px;
-    padding: 10px;
-    display: inline-block;
+    padding: 20px;
     text-align: left;
     background-color: var(--color-secondary-light);
     border-radius: 7px;
     box-shadow: var(--shadow);
 }
+
     .admin_order_info h4 + h4, .admin_order_info h4:nth-of-type(3){
         margin-top: 20px;
     }
-    .admin_order_info span{
+    .admin_order_info div{
         margin-left: 15px;
+        margin-top: 7px;
+    }
+    .admin_order_info div span{
         display: block;
+        font-weight: bold;
+        margin-bottom: 3px;
     }
-    .admin_order_info p{
+    .admin_order_info div p{
         display: inline-block;
     }
-    .admin_order_info p:first-child{
-        width: 60px;
-    }
-    .admin_order_info + aside{
-        width: calc(100% - 300px - 40px - 20px - 40px - 10px);
-        display: inline-block;
-        vertical-align: top;
-        margin: 20px;
-    }
+
 
 /*------------------------------------------------------------------*/
 /*  Admin Order Info Table Section   */
@@ -666,49 +661,45 @@ figure.item{
     margin-top: 30px;
     text-align: left;
     position: relative;
+    border: 2px solid lime;
 }
-    .admin_order_info_status .in_process_color{
+    .in_process_color,
+    .shipped_color,
+    .cancelled_color,
+    .order_info{
+        color: var(--color-dark);
+        font-weight: 500;
+        padding: 10px 20px;
+        border-radius: 7px;
+        box-shadow: var(--shadow);
+    }
+    .in_process_color{
         background-color: rgb(255, 183, 0);
-        color: var(--color-dark);
-        font-weight: 500;
-        padding: 10px 20px;
-        border-radius: 7px;
     }
-    .admin_order_info_status .shipped_color{
+    .shipped_color{
         background-color: rgb(126, 255, 126);
-        color: var(--color-dark);
-        font-weight: 500;
-        padding: 10px 20px;
-        border-radius: 7px;
     }
-    .admin_order_info_status > p, .admin_order_info_status > aside{
+    .cancelled_color{
+        background-color: rgb(252, 67, 67);
+    }
+    .order_info{
         padding: 5px;
         background-color: var(--color-secondary-light);
         width: fit-content;
-    }
-    .admin_order_info_status > aside{
-        position: absolute;
-        right: 0;
-        top: 0;
-        background-color: var(--color-secondary-light);
-        width: 20%;
         text-align: right;
         border-radius: 7px;
         box-shadow: var(--shadow);
         padding: 15px;
+        color: var(--color-light);
     }
-        .admin_order_info_status > aside span{
-            display: block;
+        .order_info p{
+            width: 125px;
+            text-align: left;
         }
-            .admin_order_info_status > aside span p:first-child{
-                display: inline-block;
-                text-align: left;
-                width: 50%;
-            }
-            .admin_order_info_status > aside span p + p{
-                width: 50%;
-                display: inline-block;
-            }
+        .order_info p span {
+            text-align: right;
+        }
+
 
 /*------------------------------------------------------------------*/
 /*  END OF Admin Order Details Page   */

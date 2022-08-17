@@ -18,7 +18,7 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     public function get_all(){
-        $select = "SELECT products.id as id, products.name, products.price, images.image 
+        $select = "SELECT products.id as id, products.name, products.price, products.inventory ,products.sold, images.image 
                         FROM products 
                         INNER JOIN images ON products.id = images.product_id ";
         $this->and_where('images.main = 1');
@@ -51,7 +51,7 @@ class Product extends CI_Model{
               ascending or descending. The default value is ASC
         OWNER: Jhones
     */
-    private function order_by($sort = 'ASC'){
+    private function order_by_price($sort = 'ASC'){
         $this->order_by .= "ORDER BY products.price ";
         $this->order_by .= $sort == 'DESC' ? 'DESC ' : 'ASC ';
     }
@@ -77,16 +77,13 @@ class Product extends CI_Model{
         }
 
         if(!empty($input['order'])){
-            $this->order_by($input['order']);
-        }else{
-            $this->order_by('ASC');
+            $this->order_by_price($input['order']);
         }
     }
 
     /*
         DOCU: This function will apply LIMIT and OFFSET statement to the query.
-              It will apply pagination to the query and it will return the total pages of
-              the pagination. This function must be called before the get_all()
+              It will apply pagination to the query and it will return the total pages of the pagination. This function must be called before the get_all()
         OWNER: Jhones
     */
     public function paginate($page = 1, $item_per_page = 15){

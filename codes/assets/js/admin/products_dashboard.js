@@ -1,46 +1,20 @@
-
-/*  For pagination highlight    */
-function pageNumHighlight(pageNum){
-    $(".pagination > a").css("background-color", "rgb(33,37,41)").css("color", "rgb(161, 161, 255)");
-    for(var i = 0; i < document.querySelectorAll(".pagination > a").length; i++){
-        if(pageNum == $(".pagination > a:nth-child(" + i + ")").text()){
-            $(".pagination > a:nth-child(" + i + ")").css("background-color", "rgb(162, 123, 92)").css("color", "white");
-        }
-    }
-}
-/**********************************************/
-
-/*  Reset the UI/Display of product categories    */
-function resetCategoryDisplay(){
-    $(".product_categories").hide();
-    $(".product_category_text_input").attr("readonly", true).css("outline", "none").css("cursor", "default");
-    $(".dummy_select_tag").css("border", "0.3px solid rgb(118, 118, 118)");
-    $(".bg_category_confirm_delete").hide();
-    $(".waiting_icon").css("visibility", "hidden");
-}
-/**********************************************/
-
-/*  Reset the attributes of checkbox    */
-function resetCheckbox(){
-    $(".img_upload_section input[type=checkbox]").attr("disabled", false);
-    $(".img_upload_section input[type=checkbox]").siblings("label").css("color", "black");
-}
-/**********************************************/
-
-/*  Reset the attributes of checkbox    */
-function hideDialogBox(){
-    $("dialog.admin_products_add_edit").hide();
-    $(".admin_product_delete").hide();
-    $(".modal_bg").hide();
-}
-/**********************************************/
-
-
-
+var pageNum = 1;
 
 $(document).ready(function(){
 
+    /* Retrieving all the products when the page first loads */
+    getProducts(1)
+
     hideDialogBox();
+
+
+    /* */
+        $('.form_admin_products_search').submit(function(){
+            pageNum = 1
+            getProducts(pageNum)
+            return false;
+        })
+    /**********************************************/
 
     /*  Pagination at footer    */
     var pageNum = 1;
@@ -48,6 +22,7 @@ $(document).ready(function(){
 
     $(document).on("click", ".pagination > a:not(.next_page)", function(){
         pageNum = $(this).text();
+        getProducts(pageNum);
         pageNumHighlight(pageNum);
         return false;
     });
@@ -270,21 +245,21 @@ $(document).ready(function(){
     });
     /**********************************************/
 
-        /*  Show the edit/delete buttons on hover.    */
-        $(document)
-        .on("mouseenter", ".product_category_edit_delete_section",  function(){
-            $(this).children(".product_category_btn").css("visibility", "visible");
-            $(this).children("form").children().css("cursor", "default").css("background-color", "#00aff8");
-            $(this).css("cursor", "default").css("background-color", "#00aff8");
-            if($(this).children("form").children("input[type=text]").attr("readonly") == null){
-                $(this).children("form").children("input[type=text]").css("cursor", "text");
-            }
-        })
-        .on("mouseleave", ".product_category_edit_delete_section",  function(){
-            $(this).children(".product_category_btn").css("visibility", "hidden");
-            $(this).children("form").children().css("background-color", "white");
-            $(this).css("background-color", "white");
-        });
+    /*  Show the edit/delete buttons on hover.    */
+    $(document)
+    .on("mouseenter", ".product_category_edit_delete_section",  function(){
+        $(this).children(".product_category_btn").css("visibility", "visible");
+        $(this).children("form").children().css("cursor", "default").css("background-color", "#00aff8");
+        $(this).css("cursor", "default").css("background-color", "#00aff8");
+        if($(this).children("form").children("input[type=text]").attr("readonly") == null){
+            $(this).children("form").children("input[type=text]").css("cursor", "text");
+        }
+    })
+    .on("mouseleave", ".product_category_edit_delete_section",  function(){
+        $(this).children(".product_category_btn").css("visibility", "hidden");
+        $(this).children("form").children().css("background-color", "white");
+        $(this).css("background-color", "white");
+    });
     /**********************************************/
 
     /*  Assign the value of selected option to the dummy select tag    */
@@ -554,3 +529,52 @@ $(document).ready(function(){
         }
     
 });
+
+/*  For pagination highlight    */
+function pageNumHighlight(pageNum){
+    $(".pagination > a").css("background-color", "rgb(33,37,41)").css("color", "rgb(161, 161, 255)");
+    for(var i = 1; i <= document.querySelectorAll(".pagination > a").length; i++){
+        if(pageNum == $(".pagination > a:nth-child(" + i + ")").text()){
+            $(".pagination > a:nth-child(" + i + ")").css("background-color", "rgb(162, 123, 92)").css("color", "white");
+        }
+    }
+}
+/**********************************************/
+
+/*  Reset the UI/Display of product categories    */
+function resetCategoryDisplay(){
+    $(".product_categories").hide();
+    $(".product_category_text_input").attr("readonly", true).css("outline", "none").css("cursor", "default");
+    $(".dummy_select_tag").css("border", "0.3px solid rgb(118, 118, 118)");
+    $(".bg_category_confirm_delete").hide();
+    $(".waiting_icon").css("visibility", "hidden");
+}
+/**********************************************/
+
+/*  Reset the attributes of checkbox    */
+function resetCheckbox(){
+    $(".img_upload_section input[type=checkbox]").attr("disabled", false);
+    $(".img_upload_section input[type=checkbox]").siblings("label").css("color", "black");
+}
+/**********************************************/
+
+/*  Reset the attributes of checkbox    */
+function hideDialogBox(){
+    $("dialog.admin_products_add_edit").hide();
+    $(".admin_product_delete").hide();
+    $(".modal_bg").hide();
+}
+/**********************************************/
+
+
+/* Request for the products, 
+    render the list on html 
+    and hightlight the page number on pagination.
+*/
+function getProducts(page = 1){
+    $.get("/products/index_html?page=" + page + '&' + $('.form_admin_products_search').serialize() + '&item_per_page=5', function(res){
+        $('#root').html(res)
+        pageNumHighlight(page);
+    })
+}
+/**********************************************/
