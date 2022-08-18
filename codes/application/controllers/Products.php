@@ -62,6 +62,7 @@ class Products extends CI_Controller {
         $user = $this->get_user(true);
         $page = $this->input->get('page') ? $this->input->get('page') : 1;
         $product = $this->product->get_by_id($id);
+        $product['images'] = json_decode($product['images']);
 
         $search_info = array(
             'category' => $product['category_id'],

@@ -5,11 +5,11 @@ class Cart extends CI_Model{
     /*
         DOCU:  This function will get all the Cart with the 
                info of pruducts. The rows are id, product_id, 
-               name, quantity and price.
+               name, quantity, inventory and price.
         OWNER: Jhones    
     */
     public function get_all($user_id){
-        $query = "SELECT carts.id, carts.product_id, products.name, carts.quantity, products.price  
+        $query = "SELECT carts.id, carts.product_id, products.name, carts.quantity, products.price, products.inventory, products.sold  
                     FROM carts 
                     INNER JOIN products ON carts.product_id = products.id 
                     WHERE user_id = ?";
@@ -126,6 +126,16 @@ class Cart extends CI_Model{
         $query = "DELETE FROM carts WHERE user_id = ?";
         $values = array($this->security->xss_clean($user_id));
         return $this->db->query($query, $values);
+    }
+
+    public function inventory_check($cart){
+        $err = array();
+        foreach($cart as $val){
+            if($val['quantity'] > $val['inventory']){
+                $err[] = "You can buy only maximum of {$val['inventory']} pcs. in {$val['name']}";
+            }
+        }
+        return !empty($err) ? $err : TRUE;
     }
 }
 

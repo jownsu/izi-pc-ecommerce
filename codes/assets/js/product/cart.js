@@ -56,7 +56,7 @@ $(document).ready(function(){
                 $('.cart_table tbody tr .total_price span').each(function(){
                     new_cart_total += parseFloat($(this).text())
                 });
-
+                new_cart_total += 50
                 $('.cart_total_amount').text(new_cart_total)
             }
 

@@ -91,7 +91,7 @@
     }
 ?>
                     <form action="<?= base_url('Orders/create') ?>" method="post" class="payment_form form-validation"  data-cc-on-file="false" data-stripe-publishable-key="<?= $this->config->item('stripe_key') ?>" id="payment-form">
-                        <input type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
+                        <input type="hidden" class="csrf" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
                         <div class="row">
                             <div class="col col-md-6">
 <?php
@@ -199,6 +199,11 @@
                             position: 'bottom-right',
                             hideAfter: 5000, 
                         })
+                        $.get('/orders/ajax_generate_csrf', function(res){
+                            $('.csrf').val(res.csrf['hash'])
+                            $('.csrf').attr('name', res.csrf['name'])
+                        });
+
                         // $('.error')
                         //     .removeClass('hide')
                         //     .find('.alert')

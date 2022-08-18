@@ -15,7 +15,7 @@
         foreach($products as $product){
 ?>
                <tr>
-                    <td><img src="<?= base_url("{$this->product->img_path}/{$product['image']}") ?>" alt="<?= $product['name'] ?>"></td>
+                    <td><img src="<?= base_url("{$this->product->img_path}/" . json_decode($product['image'])) ?>" alt="<?= $product['name'] ?>"></td>
                     <td class="product_id"><?= $product['id'] ?></td>
                     <td><?= $product['name'] ?></td>
                     <td><?= $product['inventory'] ?></td>

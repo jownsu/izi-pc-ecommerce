@@ -409,6 +409,7 @@ figure.item{
     padding: 14px 10px 10px 10px;
     background-color: var(--color-secondary-light);
     box-shadow: var(--shadow);
+    text-align: center;
 }
     .item_details .main_img{
         width: 350px;
@@ -420,9 +421,8 @@ figure.item{
     }
     .item_details .img_section section .sub_img{
         display: inline-block;
-        margin: 3px;
-        width: 80px;
-        height: 80px;
+        width: 65px;
+        height: 65px;
         background-color: var(--color-secondary-light);
     }
 

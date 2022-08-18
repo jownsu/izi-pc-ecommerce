@@ -8,6 +8,7 @@ class Orders extends CI_Controller {
         $this->load->library('form_validation');
         $this->load->model('order');
         $this->load->model('cart');
+        $this->load->model('product');
         $this->load->library('stripegateway');
     }
 
@@ -37,7 +38,7 @@ class Orders extends CI_Controller {
         $input = $this->input->get();
 
         $this->order->search($input);
-        $link_count = $this->order->paginate($page);
+        $link_count = $this->order->paginate($page, 5);
         $orders = $this->order->get_all();
         
         $view_data = array(
@@ -91,9 +92,19 @@ class Orders extends CI_Controller {
             exit();
         }
 
-        $input = $this->input->post(NULL, TRUE);
         $cart = $this->cart->get_all($user['id']);
+        $cart_inventory = $this->cart->inventory_check($cart);
+
+        if($cart_inventory !== TRUE){
+            $this->session->set_flashdata('error_msg', implode("\n", $cart_inventory));
+            redirect('carts');
+            exit();
+        }
+
+        $input = $this->input->post(NULL, TRUE);
         $order_id = $this->order->add_order($input);
+
+        $this->product->decrement_quantities($cart);
 
         if($order_id){
             //stripe
@@ -110,12 +121,16 @@ class Orders extends CI_Controller {
             $this->order->add_order_billing($order_id, $input, $stripe_res['id']);
             $this->order->add_order_shipping($order_id, $input);
 
+            $this->product->decrement_quantities($cart);
+
             $this->cart->reset_cart($user['id']);
             redirect('orders/order_success');
-    }
-
+        }
+        else{
         $this->session->set_flashdata('error_msg', "There is an error submitting your order.");
         redirect('carts');
+        }
+
     }
 
     /*
@@ -144,6 +159,21 @@ class Orders extends CI_Controller {
         $output = array(
             'message'    => $result,
             'is_success' => $is_success,
+            'csrf'       => $this->generate_csrf()
+        );
+
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($output));
+    }
+
+    /*
+        DOCU:  This function is triggered by ajax. It will generate
+               new csrf token.
+        OWNER: Jhones
+    */
+    public function ajax_generate_csrf(){
+
+        $output = array(
             'csrf'       => $this->generate_csrf()
         );
 
@@ -198,7 +228,7 @@ class Orders extends CI_Controller {
         DOCU:  This function will return regenerated csrf.
         OWNER: Jhones
     */
-    public function generate_csrf(){
+    private function generate_csrf(){
         $csrf = array(
             'name' => $this->security->get_csrf_token_name(),
             'hash' => $this->security->get_csrf_hash()
@@ -206,4 +236,5 @@ class Orders extends CI_Controller {
 
         return $csrf;
     }
+
 }

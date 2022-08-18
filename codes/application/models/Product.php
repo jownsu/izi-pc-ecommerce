@@ -18,10 +18,7 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     public function get_all(){
-        $select = "SELECT products.id as id, products.name, products.price, products.inventory ,products.sold, images.image 
-                        FROM products 
-                        INNER JOIN images ON products.id = images.product_id ";
-        $this->and_where('images.main = 1');
+        $select = "SELECT id, name, price, inventory ,sold, JSON_EXTRACT(images, '$[0]') AS image FROM products ";
         return $this->db->query($select . $this->query . $this->where . $this->order_by . $this->limit, $this->values)->result_array();
     }
 
@@ -41,7 +38,7 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     public function category($cat_id){
-        $this->and_where('products.category_id = ?');
+        $this->and_where('category_id = ?');
         $this->values[] = $this->security->xss_clean($cat_id);
     }
     
@@ -52,7 +49,7 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     private function order_by_price($sort = 'ASC'){
-        $this->order_by .= "ORDER BY products.price ";
+        $this->order_by .= "ORDER BY price ";
         $this->order_by .= $sort == 'DESC' ? 'DESC ' : 'ASC ';
     }
 
@@ -119,21 +116,31 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     public function get_by_id($id){
-        $query = "SELECT products.id as id, products.name, 
-                            products.description, 
-                            products.price, 
-                            products.category_id,
-                            GROUP_CONCAT(IF(images.main = 0, images.image, NULL )) as sub_images, 
-                            GROUP_CONCAT(IF(images.main = 1, images.image, NULL)) as main_image
+        $query = "SELECT id, name, 
+                            description, 
+                            price, 
+                            category_id,
+                            images
                         FROM products 
-                        INNER JOIN images ON products.id = images.product_id
-                        WHERE products.id = ?
-                        GROUP BY products.id 
+                        WHERE id = ?
                         LIMIT 1";
 
         $values = array($this->security->xss_clean($id));
 
         return $this->db->query($query, $values)->row_array();
+    }
+
+    public function decrement_quantities($cart){
+        foreach($cart as $val){
+            $query = "UPDATE products SET inventory = ?, sold = ? WHERE id = ?";
+            $values = array();
+
+            $values[] = $this->security->xss_clean($val['inventory'] - $val['quantity']);
+            $values[] = $this->security->xss_clean($val['sold'] + $val['quantity']);
+            $values[] = $this->security->xss_clean($val['product_id']);
+
+            $this->db->query($query, $values);
+        }  
     }
 
 }

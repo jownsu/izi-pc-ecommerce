@@ -27,13 +27,12 @@
                         <div class="row">
                             <div class="col col-md-4">
                                 <aside class="img_section">
-                                <img class="main_img" src="<?= base_url("{$this->product->img_path}/{$product['main_image']}") ?>" alt="<?= $product['name'] ?>"/>        
+                                <img class="main_img" src="<?= base_url("{$this->product->img_path}/{$product['images'][0]}") ?>" alt="<?= $product['name'] ?>"/>        
                                 <section>
-                                    <img class="sub_img default_main_img" src="<?= base_url("{$this->product->img_path}/{$product['main_image']}") ?>" alt="<?= $product['name'] ?>"/>
+     
 <?php
-                    if(!empty($product['sub_images'])){
-                        $sub_images = explode(',', $product['sub_images']);
-                        foreach($sub_images as $sub_image){
+                    if(!empty($product['images'])){
+                        foreach($product['images'] as $sub_image){
 ?>
                                     <img class="sub_img" src="<?= base_url("{$this->product->img_path}/$sub_image") ?>" alt="<?= $product['name'] ?>"/>
 <?php
@@ -72,7 +71,7 @@
 ?>
                         <section class="products">
                             <a href="<?= base_url("products/show/{$product['id']}") ?>">
-                                <img src="<?= base_url("{$this->product->img_path}/{$product['image']}") ?>" alt="<?= $product['name'] ?>"/>
+                                <img src="<?= base_url("{$this->product->img_path}/" . json_decode($product['image'])) ?>" alt="<?= $product['name'] ?>"/>
                                 <p class="product-price">&#8369;<?= $product['price'] ?></p>
                             </a>
                             <p class="product-name"><?= $product['name'] ?></p>

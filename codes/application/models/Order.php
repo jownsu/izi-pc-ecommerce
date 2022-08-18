@@ -23,7 +23,8 @@ class Order extends CI_Model{
                     INNER JOIN billing ON orders.id = billing.order_id
                     INNER JOIN order_product ON orders.id = order_product.order_id ";
 
-        return $this->db->query($select . $this->query . $this->where . 'GROUP BY orders.id ' . $this->limit, $this->values)->result_array();
+        $test = $select . $this->query . $this->where . 'GROUP BY orders.id ' . $this->limit . ' ORDER BY orders.updated_at' ;
+        return $this->db->query($select . $this->query . $this->where . 'GROUP BY orders.id ORDER BY orders.updated_at DESC ' . $this->limit, $this->values)->result_array();
     }
 
     /*
