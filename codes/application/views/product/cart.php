@@ -105,13 +105,13 @@
 ?>
                                 <div class="cart_billing_section">
                                     <h2>Shipping Information</h2>
-                                    <span><p>First Name: </p><input type="text" name="s_first_name"/></span>
-                                    <span><p>Last Name: </p><input type="text" name="s_last_name"/></span>
-                                    <span><p>Address: </p><input type="text" name="s_address1"/></span>
+                                    <span><p>First Name:* </p><input type="text" name="s_first_name"/></span>
+                                    <span><p>Last Name:* </p><input type="text" name="s_last_name"/></span>
+                                    <span><p>Address:* </p><input type="text" name="s_address1"/></span>
                                     <span><p>Address 2: </p><input type="text" name="s_address2"/></span>
-                                    <span><p>City: </p><input type="text" name="s_city"/></span>
-                                    <span><p>State: </p><input type="text" name="s_state"/></span>
-                                    <span><p>Zipcode: </p><input type="number" name="s_zipcode"/></span>
+                                    <span><p>City:* </p><input type="text" name="s_city"/></span>
+                                    <span><p>State:* </p><input type="text" name="s_state"/></span>
+                                    <span><p>Zipcode:* </p><input type="number" name="s_zipcode"/></span>
                                 </div>
                             </div>
                             <div class="col col-md-6">
@@ -130,18 +130,18 @@
                                         <input id="billing_checkbox" type="checkbox" name="billing_info" value="same_shipping" />
                                         <label for="billing_checkbox">Same as Shipping</label>
                                     </span>
-                                    <span><p>First Name: </p><input type="text" name="b_first_name"/></span>
-                                    <span><p>Last Name: </p><input type="text" name="b_last_name"/></span>
-                                    <span><p>Address: </p><input type="text" name="b_address1"/></span>
+                                    <span><p>First Name:* </p><input type="text" name="b_first_name"/></span>
+                                    <span><p>Last Name:* </p><input type="text" name="b_last_name"/></span>
+                                    <span><p>Address:* </p><input type="text" name="b_address1"/></span>
                                     <span><p>Address 2: </p><input type="text" name="b_address2"/></span>
-                                    <span><p>City: </p><input type="text" name="b_city"/></span>
-                                    <span><p>State: </p><input type="text" name="b_state"/></span>
-                                    <span><p>Zipcode: </p><input type="number" name="b_zipcode"/></span>
+                                    <span><p>City:* </p><input type="text" name="b_city"/></span>
+                                    <span><p>State:* </p><input type="text" name="b_state"/></span>
+                                    <span><p>Zipcode:* </p><input type="number" name="b_zipcode"/></span>
 
-                                    <span class="card_billing"><p>Card: </p><input type="text" class="card-number" name="b_card_number"/></span>
-                                    <span><p>Cvc: </p><input type="number" class="card-cvc" name="b_card_security"/></span>
+                                    <span class="card_billing"><p>Card:* </p><input type="text" class="card-number" name="b_card_number"/></span>
+                                    <span><p>Cvc:* </p><input type="number" class="card-cvc" name="b_card_security"/></span>
                                     <span class="card_exp">
-                                        <p>Expiration: </p><input type="number" class="card-expiry-month" name="b_card_exp_month" placeholder="(mm)"/>
+                                        <p>Expiration:* </p><input type="number" class="card-expiry-month" name="b_card_exp_month" placeholder="(mm)"/>
                                         <p>/</p><input type="number" class="card-expiry-year" name="b_card_exp_year" placeholder="(year)"/>
                                     </span>
                                     <input type="submit" value="Pay" class="btn-primary px-3  py-2 ms-auto d-block"/>

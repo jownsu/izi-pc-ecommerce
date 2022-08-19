@@ -128,6 +128,13 @@ class Cart extends CI_Model{
         return $this->db->query($query, $values);
     }
 
+    /*
+        DOCU:  This function will check all the products in the 
+               cart if the quantity on it is less than the inventory
+               of the actual product. If it is, it will return TRUE else
+               it will return all the errors.
+        OWNER: Jhones    
+    */
     public function inventory_check($cart){
         $err = array();
         foreach($cart as $val){

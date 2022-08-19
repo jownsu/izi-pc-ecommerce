@@ -21,8 +21,8 @@
                     <td><?= $product['inventory'] ?></td>
                     <td><?= $product['sold'] ?></td>
                     <td>
-                        <a href="" class="product_edit_link btn-secondary p-2">Edit</a>
-                        <a href="" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
+                        <a href="/" class="product_edit_link btn-secondary p-2">Edit</a>
+                        <a href="/" data-id="<?= $product['id'] ?>" class="product_delete_link btn-warning p-2 ms-1">Delete</a>
                     </td>
                 </tr>
 <?php

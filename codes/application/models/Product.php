@@ -19,7 +19,7 @@ class Product extends CI_Model{
     */
     public function get_all(){
         $select = "SELECT id, name, price, inventory ,sold, JSON_EXTRACT(images, '$[0]') AS image FROM products ";
-        return $this->db->query($select . $this->query . $this->where . $this->order_by . $this->limit, $this->values)->result_array();
+        return $this->db->query($select . $this->query . $this->where . $this->order_by . $this->limit , $this->values)->result_array();
     }
 
     /*
@@ -75,6 +75,8 @@ class Product extends CI_Model{
 
         if(!empty($input['order'])){
             $this->order_by_price($input['order']);
+        }else{
+            $this->order_by = "ORDER BY created_at DESC ";
         }
     }
 
@@ -112,24 +114,25 @@ class Product extends CI_Model{
     /*
         DOCU: This function will get the product by ID.
               The rows that will return are id, name, description,
-              price, category_id, sub_images, main_image
+              price, category_id and images.
         OWNER: Jhones
     */
     public function get_by_id($id){
-        $query = "SELECT id, name, 
-                            description, 
-                            price, 
-                            category_id,
-                            images
-                        FROM products 
-                        WHERE id = ?
-                        LIMIT 1";
+        $query = "SELECT id, name, description, price, category_id, images
+                    FROM products 
+                    WHERE id = ?
+                    LIMIT 1";
 
         $values = array($this->security->xss_clean($id));
 
         return $this->db->query($query, $values)->row_array();
     }
 
+    /*
+        DOCU: This function will decrement the quantites of all product
+              in the cart.
+        OWNER: Jhones
+    */
     public function decrement_quantities($cart){
         foreach($cart as $val){
             $query = "UPDATE products SET inventory = ?, sold = ? WHERE id = ?";
@@ -143,6 +146,37 @@ class Product extends CI_Model{
         }  
     }
 
+    /*
+        DOCU: This function will get the product by ID.
+              The rows that will return are id, name, description,
+              price, category_id, sub_images, main_image
+        OWNER: Jhones
+    */
+    public function create($input){
+        $query = "INSERT INTO products (category_id, name, description, inventory, price, images, created_at) 
+                VALUES(?, ?, ?, ?, ?, ?, NOW())";
+
+        $values = array(
+            $this->security->xss_clean($input['category_id']),
+            $this->security->xss_clean($input['name']),
+            $this->security->xss_clean($input['description']),
+            $this->security->xss_clean($input['inventory']),
+            $this->security->xss_clean($input['price']),
+            $this->security->xss_clean(json_encode($input['images']))
+        );
+
+        return$this->db->query($query, $values);
+    }
+
+    /*
+        DOCU: This function will delete a product
+        OWNER: Jhones
+    */
+    public function delete($product_id){
+        $query = "DELETE FROM products WHERE id = ?";
+        $values = array($this->security->xss_clean($product_id));
+        return $this->db->query($query, $values);
+    }
 }
 
 ?>

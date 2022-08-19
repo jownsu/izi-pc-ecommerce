@@ -8,6 +8,7 @@ class Products extends CI_Controller {
         $this->load->model('product');
         $this->load->model('cart');
         $this->load->model('category');
+        $this->load->library('form_validation');
     }
 
     /*
@@ -36,7 +37,7 @@ class Products extends CI_Controller {
         $user = $this->get_user(true);
 
         $view_data = array(
-                        'categories' => $this->category->get_all(),
+                        'categories' => $this->category->get_all_with_count(),
                         'cart_count' => $this->cart->cart_count($user['id'])
                     );
 
@@ -50,7 +51,12 @@ class Products extends CI_Controller {
     */
     public function dashboard(){
         $this->get_user(true, 'admin');
-        $this->load->view('admin/products_dashboard');
+        $view_data = array( 
+                        'csrf'        => $this->generate_csrf(), 
+                        'success_msg' => $this->session->flashdata('success_msg'),
+                        'error_msg'   => $this->session->flashdata('error_msg')
+                    );
+        $this->load->view('admin/products_dashboard', $view_data);
     }
 
     /*
@@ -68,8 +74,8 @@ class Products extends CI_Controller {
             'category' => $product['category_id'],
             'limit'    => 5
         );
-
         $this->product->search($search_info);
+
         $similar_products = $this->product->get_all();
 
         $view_data  = array(
@@ -93,10 +99,9 @@ class Products extends CI_Controller {
 	public function index_html(){
         $user = $this->get_user();
         $page = $this->input->get('page') ? $this->input->get('page') : 1;
-
         $item_per_page = $this->input->get('item_per_page') ? $this->input->get('item_per_page') : 15;
+        
         $input = $this->input->get();
-
         $this->product->search($input);
 
         $link_count = $this->product->paginate($page, $item_per_page);
@@ -152,6 +157,49 @@ class Products extends CI_Controller {
     }
 
     /*
+        DOCU:  This function will trigger if the add product form is submitted.
+               It will create a product.
+        OWNER: Jhones
+    */
+    public function create(){
+        if($this->form_validation->run('add_product') === FALSE){
+            $this->session->set_flashdata('error_msg', validation_errors());
+        }
+        else if (empty($this->input->post('category_id')) && empty($this->input->post('add_category'))){
+            $this->session->set_flashdata('error_msg', "Category is required");
+        }
+        else{
+            $input = $this->input->post(NULL, TRUE);
+            $input['images'] = $this->upload_images($_FILES);
+            if(!empty($input['add_category'])){
+                $category_id = $this->category->create($input['add_category']);
+                $input['category_id'] = $category_id;
+            }
+            $this->product->create($input);
+            $this->session->set_flashdata('success_msg', 'Product added.');
+        }
+        redirect('dashboard/products');
+    }
+
+    /*
+        DOCU:  This function will trigger if the delete product form is submitted.
+               It will delete a product.
+        OWNER: Jhones
+    */
+    public function delete(){
+        if($this->form_validation->run('delete_product') === FALSE){
+            $this->session->set_flashdata('error_msg', validation_errors());
+        }
+        else{
+            $product_id = $this->input->post('product_id');
+        
+            $this->product->delete($product_id);
+            $this->session->set_flashdata('success_msg', 'Product deleted.');
+        }
+        redirect('dashboard/products');
+    }
+
+    /*
         DOCU:  This function will return regenerated csrf.
         OWNER: Jhones
     */
@@ -162,5 +210,40 @@ class Products extends CI_Controller {
         );
 
         return $csrf;
+    }
+
+    /*
+        DOCU:  This function will upload the images in the ./public/images folder.
+        OWNER: Jhones
+    */
+    private function upload_images($file){
+        $data = [];
+        $count = count($file['images']['name']);
+        for($i=0;$i<$count;$i++){
+      
+            if(!empty($file['images']['name'][$i])){
+                $_FILES['image']['name']     = $file['images']['name'][$i];
+                $_FILES['image']['type']     = $file['images']['type'][$i];
+                $_FILES['image']['tmp_name'] = $file['images']['tmp_name'][$i];
+                $_FILES['image']['error']    = $file['images']['error'][$i];
+                $_FILES['image']['size']     = $file['images']['size'][$i];
+
+                $config = array(
+                    'upload_path'   => "./public/images",
+                    'allowed_types' => "jpg|jpeg|png|gif",
+                    'max_size'      => '2048000',
+                    'file_name'     => $file['images']['name'][$i], 
+                );
+            
+                $this->load->library('upload',$config); 
+            
+                if($this->upload->do_upload('image')){
+                    $uploadData = $this->upload->data();
+                    $filename = $uploadData['file_name'];
+                    $data[] = $filename;
+                }
+            }
+        }
+        return !empty($data) ? $data : array('placeholder.png');
     }
 }

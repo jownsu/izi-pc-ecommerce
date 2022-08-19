@@ -61,7 +61,7 @@ class Users extends CI_Controller {
         $this->load->view('login_register/registration', $view_data);
 	}
 
-        /* 
+    /* 
         DOCU: This function will redirect to products if the 
               session of user is set else it will render the
               admin login page.
@@ -126,9 +126,9 @@ class Users extends CI_Controller {
     }
 
     /* 
-        DOCU: This function will trigger if sign in button was clicked.
+        DOCU:   This function will trigger if sign in button was clicked.
                 It will validate the form and if it has error it will redirect back 
-                to the registration page else it will redirect to <>.
+                to the registration page else it will redirect to product page.
         OWNER: Jhones
     */
     public function process_register(){
@@ -161,7 +161,7 @@ class Users extends CI_Controller {
         redirect('register');
     }
 
-        /*
+    /*
         DOCU: This function will trigger if login button was clicked.
               It will validate the form and if it has error it will redirect
               back to the admin login page else it will redirect to dashboard 

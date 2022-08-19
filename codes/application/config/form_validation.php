@@ -51,6 +51,35 @@ $config = array(
         )
     ),
 
+    'add_product' => array(
+        // array(
+        //     'field' => 'category_id',
+        //     'label' => 'Category ID',
+        //     'rules' => 'trim|required'
+        // ),
+        array(
+            'field' => 'name',
+            'label' => 'Name',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'description',
+            'label' => 'Description',
+            'rules' => 'trim|required'
+        ),
+        array(
+            'field' => 'inventory',
+            'label' => 'Inventory',
+            'rules' => 'trim|required'
+        )
+    ),
+    'delete_product' => array(
+        array(
+            'field' => 'product_id',
+            'label' => 'Product ID',
+            'rules' => 'trim|required|numeric'
+        ),
+    ),
     'add_to_cart' => array(
         array(
             'field' => 'quantity',

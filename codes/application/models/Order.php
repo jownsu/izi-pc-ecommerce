@@ -96,8 +96,6 @@ class Order extends CI_Model{
         OWNER: Jhones
     */
     private function count_all(){
-        // return $this->db->query($select . $this->query . $this->where . 'GROUP BY orders.id ' . $this->limit, $this->values)->result_array();
-
         $select = "SELECT DISTINCT COUNT(*) OVER() as count FROM orders 
                 INNER JOIN billing ON orders.id = billing.order_id
                 INNER JOIN order_product ON orders.id = order_product.order_id ";
@@ -230,6 +228,10 @@ class Order extends CI_Model{
         return $this->db->query($query, $values);
     }
 
+    /*
+        DOCU:  This function will update the status of an order.
+        OWNER: Jhones
+    */
     public function update_status($order_id, $status){
         $query = "UPDATE orders SET status = ? WHERE id = ?";
         $values = array(
