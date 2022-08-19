@@ -12,7 +12,41 @@
         <link rel="stylesheet" href="<?= base_url('assets/css/normalize.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.min.js" integrity="sha512-zlWWyZq71UMApAjih4WkaRpikgY9Bz1oXIW5G0fED4vk14JjGlQ1UmkGM392jEULP8jbNMiwLWdM8Z87Hu88Fw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-toast-plugin/1.3.2/jquery.toast.css" integrity="sha512-8D+M+7Y6jVsEa7RD6Kv/Z7EImSpNpQllgaEIQAtqHcI0H6F4iZknRj0Nx1DCdB+TwBaS+702BGWYC0Ze2hpExQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="<?= base_url('assets/js/admin/products_dashboard.js') ?>"></script>
+        <script>
+            $(document).ready(function(){
+<?php
+            if(!empty($success_msg)){
+?>
+                $.toast({
+                    heading: 'Success',
+                    text: '<?= $success_msg ?>',
+                    icon: 'success',
+                    showHideTransition: 'slide',
+                    position: 'top-right',
+                    hideAfter: 5000, 
+                })
+<?php
+            }
+?>
+<?php
+            if(!empty($error_msg)){
+?>
+                $.toast({
+                    heading: 'Error',
+                    text: '<?= $error_msg ?>',
+                    icon: 'error',
+                    showHideTransition: 'slide',
+                    position: 'top-right',
+                    hideAfter: 5000, 
+                })
+<?php
+            }
+?>
+            })
+        </script>
     </head>
     <body>
         <div class="container-xl _container">
@@ -23,24 +57,6 @@
                 <a class="btn-warning p-2 ms-auto" href="<?= base_url('users/logout') ?>">Log off</a>
             </header>
             <main>
-<?php
-            if(!empty($error_msg)){
-?>
-                <div class="alert-error">
-                    <?= $error_msg ?>
-                </div>
-<?php
-            }
-?>
-<?php
-            if(!empty($success_msg)){
-?>
-                <div class="alert-success">
-                    <?= $success_msg ?>
-                </div>
-<?php
-            }
-?>
                 <p class="message_admin_products"></p>
                 <section class="form_admin_products">
                     <form class="form_admin_products_search" action="<?= base_url('products/index_html') ?>">
