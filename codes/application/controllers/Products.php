@@ -188,7 +188,7 @@ class Products extends CI_Controller {
             $this->session->set_flashdata('error_msg', "Category is required");
         }
         else{
-            if(!empty($input['product_id'])){
+            if(!empty($this->input->post('product_id'))){
                 $this->update_product();
             }else{
                 $this->create_product();
