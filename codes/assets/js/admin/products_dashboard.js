@@ -146,6 +146,7 @@ $(document).ready(function(){
 
     /*  Edit the value of the specific category    */
     $(document).on("click", ".btn_product_category_edit", function(){
+        console.log($(this).parent().siblings(".product_category_text_input").val());
         $(".product_category_text_input").attr("readonly", true).css("outline", "none");
         $(this).parent().siblings("form").children(".product_category_text_input").attr("readonly", false).css("outline", "2.5px solid black").css("cursor", "text");
     });

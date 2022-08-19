@@ -1,4 +1,4 @@
-
+</form>
 <?php
     if(!empty($categories)){
         foreach($categories as $category){
