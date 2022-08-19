@@ -118,7 +118,7 @@ class Product extends CI_Model{
         OWNER: Jhones
     */
     public function get_by_id($id){
-        $query = "SELECT id, name, description, price, category_id, images
+        $query = "SELECT id, name, description, price, category_id, images, inventory
                     FROM products 
                     WHERE id = ?
                     LIMIT 1";
@@ -175,6 +175,27 @@ class Product extends CI_Model{
     public function delete($product_id){
         $query = "DELETE FROM products WHERE id = ?";
         $values = array($this->security->xss_clean($product_id));
+        return $this->db->query($query, $values);
+    }
+
+    /*
+        DOCU: This function will update the product
+        OWNER: Jhones
+    */
+    public function update($input){
+        $images = !empty($input['images']) ? $this->security->xss_clean(json_encode($input['images'])) : NULL;
+
+        $query = "UPDATE products SET category_id = ?, name = ?, description = ?, inventory = ?, price = ?, images = IFNULL(?, images) WHERE id = ?";
+        $values = array(
+                    $this->security->xss_clean($input['category_id']),
+                    $this->security->xss_clean($input['name']),
+                    $this->security->xss_clean($input['description']),
+                    $this->security->xss_clean($input['inventory']),
+                    $this->security->xss_clean($input['price']),
+                    $images,
+                    $this->security->xss_clean($input['product_id'])
+                );
+                
         return $this->db->query($query, $values);
     }
 }

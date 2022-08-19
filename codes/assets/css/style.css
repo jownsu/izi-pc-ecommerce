@@ -913,6 +913,7 @@ dialog .btn_close{
                         height: 24px;
                         border: none;
                         /* width: 328px; */
+                        background: transparent;
                         width: 300px;
                         padding: 10px;
                     }
@@ -1034,9 +1035,6 @@ input[type=file]{
     height: fit-content;
 }
 
-
-
-
 /*------------------------------------------------------------------*/
 /*  END OF Admin Products Dashboard Modal Section   */
 /*------------------------------------------------------------------*/
@@ -1044,10 +1042,3 @@ input[type=file]{
 /*------------------------------------------------------------------*/
 /*  END OF Admin Products Dashboard Page   */
 /*------------------------------------------------------------------*/
-
-.error {
-    display: block;
-    color: rgb(255, 0, 0);
-    margin-left: 170px;
-    font-size: bold;
-}

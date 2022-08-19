@@ -4,12 +4,11 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>(Dashboard Products)</title>
+        <title>Dashboard Products | Izi PC</title>
         <script src="<?= base_url('assets/js/jquery.min.js') ?>"></script>
         <script src="<?= base_url('assets/js/jquery-ui.js') ?>"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap-grid.min.css" integrity="sha512-Aa+z1qgIG+Hv4H2W3EMl3btnnwTQRA47ZiSecYSkWavHUkBF2aPOIIvlvjLCsjapW1IfsGrEO3FU693ReouVTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.0/css/bootstrap-utilities.min.css" integrity="sha512-zaB1zReS2QONsLmpHDzDuNInQ7m4rswNiOXRWYkwxx3YDLz0AuryPJCbsWeoUM/7ZEOY0ZYXQdkei0Kac5gc1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script> -->
         <link rel="stylesheet" href="<?= base_url('assets/css/normalize.css') ?>">
         <link rel="stylesheet" href="<?= base_url('assets/css/style.css') ?>">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -75,7 +74,7 @@
                     <path fill-rule="evenodd" d="M2.146 2.146a.5.5 0 0 0 0 .708l11 11a.5.5 0 0 0 .708-.708l-11-11a.5.5 0 0 0-.708 0Z"/>
                 </svg>
             </button>
-            <form class="form_product_add_edit" action="<?= base_url('products/create') ?>" method="post" enctype="multipart/form-data">
+            <form class="form_product_add_edit" action="<?= base_url('products/save') ?>" method="post" enctype="multipart/form-data">
                 <input type="hidden" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
                 <p>Name: </p><input class="input_product_name" type="text" name="name"/>
                 <p>Description: </p><textarea class="input_product_desc" name="description"></textarea>
@@ -104,8 +103,9 @@
                 <div class="category_confirm_delete">
                     <p>Are you sure you want to delete "<span class="category_name">Shirt</span>" category?</p>
                     <div class="d-flex justify-content-between">
-                        <form action="" method="post">
-                            <input class="category_id" type="hidden" name="category_id" value="id"/>
+                        <form action="<?= base_url('categories/delete') ?>" method="post">
+                            <input type="hidden" class="csrf" name="<?= $csrf['name'] ?>" value="<?= $csrf['hash'] ?>">
+                            <input class="category_id" type="hidden" name="category_id" value=""/>
                             <input type="submit" value="Yes" class="btn-secondary py-2 px-3"/>
                         </form>
                         <button type="button" class="btn-warning py-2 px-3">No</button>

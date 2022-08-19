@@ -91,6 +91,24 @@ class Products extends CI_Controller {
     }
 
     /*
+        DOCU: This function will render the product based on passed ID.
+              It will also show 5 products with similar categories.
+        OWNER: Jhones
+    */
+    public function ajax_show($id){
+        $product = $this->product->get_by_id($id);
+        $product['images'] = json_decode($product['images']);
+
+        $output = array(
+            'product' => $product,
+            'csrf'    => $this->generate_csrf()
+        );
+
+        $this->output->set_content_type('application/json');
+        $this->output->set_output(json_encode($output));
+    }
+
+    /*
         DOCU: This function is called when form is submitted through ajax. 
               It search through products and paginate it. If page is 
               undefined the default value is 1.
@@ -157,11 +175,12 @@ class Products extends CI_Controller {
     }
 
     /*
-        DOCU:  This function will trigger if the add product form is submitted.
-               It will create a product.
+        DOCU:  This function will trigger if the add/edit product form is submitted.
+               If product_id is existed it will update the product else it will
+               create one.
         OWNER: Jhones
     */
-    public function create(){
+    public function save(){
         if($this->form_validation->run('add_product') === FALSE){
             $this->session->set_flashdata('error_msg', validation_errors());
         }
@@ -169,14 +188,11 @@ class Products extends CI_Controller {
             $this->session->set_flashdata('error_msg', "Category is required");
         }
         else{
-            $input = $this->input->post(NULL, TRUE);
-            $input['images'] = $this->upload_images($_FILES);
-            if(!empty($input['add_category'])){
-                $category_id = $this->category->create($input['add_category']);
-                $input['category_id'] = $category_id;
+            if(!empty($input['product_id'])){
+                $this->update_product();
+            }else{
+                $this->create_product();
             }
-            $this->product->create($input);
-            $this->session->set_flashdata('success_msg', 'Product added.');
         }
         redirect('dashboard/products');
     }
@@ -197,6 +213,40 @@ class Products extends CI_Controller {
             $this->session->set_flashdata('success_msg', 'Product deleted.');
         }
         redirect('dashboard/products');
+    }
+
+    /*
+        DOCU:  This function will create a product
+        OWNER: Jhones
+    */
+    private function create_product(){
+        $input = $this->input->post(NULL, TRUE);
+
+        $input['images'] = $this->upload_images($_FILES);
+        if(!empty($input['add_category'])){
+            $category_id = $this->category->create($input['add_category']);
+            $input['category_id'] = $category_id;
+        }
+        $this->product->create($input);
+        $this->session->set_flashdata('success_msg', 'Product added.');
+    }
+    
+    /*
+        DOCU:  This function will update a product
+        OWNER: Jhones
+    */
+    private function update_product(){
+        $input = $this->input->post(NULL, TRUE);
+
+        if(!empty($_FILES['images']['name'][0])){
+            $input['images'] = $this->upload_images($_FILES);
+        }
+        if(!empty($input['add_category'])){
+            $category_id = $this->category->create($input['add_category']);
+            $input['category_id'] = $category_id;
+        }
+        $this->product->update($input);
+        $this->session->set_flashdata('success_msg', 'Product updated.');
     }
 
     /*

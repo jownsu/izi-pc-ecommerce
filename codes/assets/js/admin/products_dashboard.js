@@ -1,14 +1,15 @@
 var pageNum = 1;
 
 $(document).ready(function(){
-
-    // $('.form_product_add_edit').validate()
+    $.get('/categories/index_html', function(res){
+        $(".product_categories").html(res)
+        resetCategoryDisplay()
+    })
 
     /* Retrieving all the products when the page first loads */
     getProducts(1)
 
     hideDialogBox();
-
 
     /* Getting the products */
         $('.form_admin_products_search').submit(function(){
@@ -33,30 +34,6 @@ $(document).ready(function(){
         pageNumHighlight(pageNum);
         return false;
     });
-    /**********************************************/
-
-    /* When form product add and edit is submitted */
-    $('.form_product_add_edit').submit(function(){
-        // console.log($(this).serialize());
-
-        // retrieve form element
-        // var form = this.form;
-        // // prepare data
-        // var data = new FormData(form);
-
-        // $.ajax({
-        //     type: 'POST',
-        //     url: $(this).attr('action'),
-        //     data: data,
-        //     processData: false,
-        //     contentType: false
-        // });
-
-        // console.log(data)
-        // return false
-    })
-    /**********************************************/
-
 
     /*  Open add new product dialog box    */
     $(document).on("click", ".btn_add_product", function(){
@@ -77,50 +54,7 @@ $(document).ready(function(){
 
     /*  Clicking add button will submit the form using ajax    */
     $(document).on("click", ".add_product_submit", function(){
-        var className = $("tbody tr:last-child").attr("class").split(" ");
-        var colorNum = className[0].split("color")[1];
-        var productID = className[1].split("product_id_")[1];
-        var newProductID = parseInt(productID) + 1;
-        var newClassName = "color" + ((colorNum + 1) % 2) + " product_id_" + newProductID;
-
-        // almost same as edit product and in preview
-        var productName = $(".input_product_name").val();
-        var productInventory = $(".input_product_qty").val();
-
-        var imgUpload = $(".img_upload_section > figure > img");
-        var imgCheckbox = $(".img_upload_section > input[type=checkbox]");
-        var prevProductImg = [];
-        var mainIndexImg = 0;
-        for(var i = 0; i < imgUpload.length; i++){
-            prevProductImg[i] = imgUpload[i].currentSrc;
-            if(imgCheckbox[i].checked){
-                mainIndexImg = i;
-            }
-        }
-        var productImgSrc = prevProductImg[mainIndexImg];
-        var productImgAlt = "img";
-        
-        var newProductHtmlStr = '' +
-            '<tr class="' + newClassName + '">' +
-                '<td><img src="' + productImgSrc + '" alt="img"></td>' +
-                '<td class="product_id">' + newProductID + '</td>' +
-                '<td>' + productName + '</td>' +
-                '<td>' + productInventory + '</td>' +
-                '<td>0</td>' +
-                '<td>' +
-                    '<a href="/" class="btn-secondary p-2">edit</a>' +
-                    '<a href="/" class="btn-warning p-2 ms-1">Delete</a>' +
-                '</td>' +
-            '</tr>';
-
-        $("tbody").append(newProductHtmlStr);
-        
-                    
-        // ajax
-        // display message
-
         hideDialogBox();
-        return false;
     });
     /********************************************************************/
 
@@ -152,41 +86,14 @@ $(document).ready(function(){
     });
     /**********************************************/
 
-        /*  Open edit product dialog box    */
+    /*  Open edit product dialog box    */
         $(document).on("click", ".product_edit_link", function(){
-        var productID = $(this).parent().parent().siblings(".product_id").text();
-        var headerStr = "Edit Product - ID " + productID;
-        var productName = $(this).parent().parent().siblings(".product_id + td").text();
-        var productDesc = "Product description...Product description...Product description...Product description...Product description...Product description...Product description...";
-        var productCategory = productName;
-        var productPrice = 19.99;
-        var productInventory = $(this).parent().parent().siblings(".product_id + td + td").text();
-        var productImgSrc = $(this).parent().parent().parent().children("td:first-child").find("img").attr("src");
-        var productImgAlt = $(this).parent().parent().parent().children("td:first-child").find("img").attr("alt");
+        var productID = $(this).attr('data-id');
+        getProduct(productID);
 
-        var htmlImgStr = "" +
-            '<li class="img_upload_section">' +
-                '<figure>' +
-                    '<img src="' + productImgSrc + '" alt="' + productImgAlt + '" />' +
-                '</figure>' +
-                '<p class="img_filename">' + productImgAlt + '</p>' +
-                '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash btn_img_upload_delete" viewBox="0 0 16 16">' +
-                    '<path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>' +
-                    '<path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>' +
-                '</svg>' +
-                // '<input type="checkbox" name="is_img_upload_main_id" value="filename" />' +
-                '<input type="checkbox" name="img_upload_main_id" value="filename" />' +
-                '<label>main</label>' +
-            '</li>';
-
-        $(".add_edit_product_header").text(headerStr);
-        $(".input_product_name").val(productName);
-        $(".input_product_desc").val(productDesc);
-        $(".dummy_select_tag span:first-child").text(productCategory);
-        $(".input_product_price").val(productPrice);
-        $(".input_product_qty").val(productInventory);
-        $(".img_upload_container").html(htmlImgStr);
-
+        
+        $(".img_upload_container").html("");
+        $(".add_edit_product_header").text("Edit Product - ID " + productID);
         $(".products_add_edit_btn .product_id").val(productID);
         $(".btn_submit_products_add_edit").val("Update");
         $(".btn_submit_products_add_edit").removeClass("add_product_submit");
@@ -198,74 +105,9 @@ $(document).ready(function(){
     /**********************************************/
 
     /*  Clicking add button will submit the form using ajax    */
-    // submit form using the general ajax. Not this!
     $(document).on("click", ".edit_product_submit", function(){
-        var productIdEdited = ".product_id_" + $(".products_add_edit_btn .product_id").val();
-        var productName = $(".input_product_name").val();
-        var productInventory = $(".input_product_qty").val();
-
-        var imgUpload = $(".img_upload_section > figure > img");
-        var imgCheckbox = $(".img_upload_section > input[type=checkbox]");
-        var prevProductImg = [];
-        var mainIndexImg = 0;
-        for(var i = 0; i < imgUpload.length; i++){
-            prevProductImg[i] = imgUpload[i].currentSrc;
-            if(imgCheckbox[i].checked){
-                mainIndexImg = i;
-            }
-        }
-        var productImgSrc = prevProductImg[mainIndexImg];
-        var productImgAlt = "img";
-
-        $(productIdEdited).children(".product_id + td").text(productName);
-        $(productIdEdited).children(".product_id + td + td").text(productInventory);
-        $(productIdEdited).children("td:first-child").find("img").attr("src", productImgSrc);
-        $(productIdEdited).children("td:first-child").find("img").attr("alt", productImgAlt);
-        $(this).parent().parent().submit(function(){ return false; });
         hideDialogBox();
-        return false;
     });
-    /**********************************************/
-
-
-    /*  Initializing the content of product categories    */
-
-    $.get('/categories/index_html', function(res){
-        var categories = res;
-
-        var categoriesOption = "<form></form>";
-        var selectOptions = "";
-        for(var i = 0; i < categories.length; i++){
-            categoriesOption += 
-                '<li class="product_category_edit_delete_section">' +
-    
-                    '\n\t<form class="form_product_category_edit" action="" method="post">' +
-                        '\n\t\t<input class="product_category_id" type="hidden" name="product_category_id" value="' + categories[i].id + '"/>' +
-                        '\n\t\t<input class="product_category_text_input" readonly type="text" value="' + categories[i].name + '"/>' +
-                    '\n\t</form>' +
-    
-                    '\n\t<div class="product_category_btn">' +
-    
-                        '\n\t\t<div class="waiting_icon"><img src="../../../assets/img/ajax-loading-icon.gif" alt="waiting icon"></div>' +
-    
-                        '\n\t\t<i class="bi bi-pencil-fill btn_product_category_edit"></i>' +
-    
-                        '\n\t\t<i class="bi bi-trash btn_product_category_delete"></i> ' +
-    
-                    '\n\t</div>' +
-    
-                '\n</li>';
-    
-            selectOptions += '<option value="' + categories[i] + '">' + categories[i] + '</option>';
-        }
-
-        $(".product_categories").html(categoriesOption);
-        resetCategoryDisplay();
-    })
-
-
-
-
     /**********************************************/
 
     /*  Show the options/categories for the dummy select tag    */
@@ -313,8 +155,7 @@ $(document).ready(function(){
         if($(this).attr("readonly") != "readonly"){
             // display waiting icon before sending
             $(this).parent().siblings(".product_category_btn").children(".waiting_icon").css("visibility", "visible");
-            // activate ajax and send form.
-            $(this).parent().submit(function(){ return false; });
+  
             // hide waiting icon after receiving ang changing all data.
             setTimeout(function(){
                 $(".waiting_icon").css("visibility", "hidden");
@@ -329,6 +170,7 @@ $(document).ready(function(){
 
         var categoryName = $(this).parent().siblings("form").children(".product_category_text_input").val();
         var categoryID = $(this).parent().siblings("form").children(".product_category_id").val();
+
         $(".category_name").text(categoryName);
         $(".category_id").val(categoryID);
 
@@ -342,7 +184,7 @@ $(document).ready(function(){
     // submit delete form using the general ajax. Not this!
     $(document).on("click", ".category_confirm_delete input[type=submit]", function(){
         $("." + $(this).siblings().val()).remove();
-        $(this).parent().submit(function(){ return false; });
+        // $(this).parent().submit(function(){ return false; });
         resetCategoryDisplay();
     });
     /**********************************************/
@@ -606,6 +448,30 @@ function getProducts(page = 1){
     $.get("/products/index_html?page=" + page + '&' + $('.form_admin_products_search').serialize() + '&item_per_page=5', function(res){
         $('#root').html(res)
         pageNumHighlight(page);
+    })
+}
+/**********************************************/
+
+/*
+    It will return a single product and populate the
+    add edit form.
+*/
+function getProduct(product_id){
+    $.get("/products/ajax_show/" + product_id, function(res){
+        $('.form_product_add_edit .input_product_name').val(res.product['name'])
+        $('.form_product_add_edit .input_product_desc').val(res.product['description'])
+        $('.form_product_add_edit .category_id').val(res.product['category_id'])
+        $('.form_product_add_edit .input_product_price').val(res.product['price'])
+        $('.form_product_add_edit .input_product_qty').val(res.product['inventory'])
+
+        $('.form_product_category_edit .product_category_id').each(function(){
+            if($(this).val() == res.product['category_id']){
+                $('.dummy_select_tag span:first-child').text($(this).siblings('.product_category_text_input').val());
+            }
+        })
+
+        $('.csrf').val(res.csrf['hash'])
+        $('.csrf').attr('name', res.csrf['name'])
     })
 }
 /**********************************************/
