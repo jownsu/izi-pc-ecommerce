@@ -19,9 +19,9 @@ Instructions on how to use them in your own application are linked below.
 
 | Plugin | Link |
 | ------ | ------ |
-| Jquery | [https://jquery.com/][PlDb] |
-| Jquery Toast | [https://kamranahmed.info/toast][PlGh] |
-| Bootstrap | [https://getbootstrap.com/][PlGd] |
+| Jquery | https://jquery.com |
+| Jquery Toast | https://kamranahmed.info/toast |
+| Bootstrap | https://getbootstrap.com/ |
 
 ## Izi PC - ERD
 
